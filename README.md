@@ -55,7 +55,7 @@ python src/model_registry.py
 
 **Prefect Task**:
 
-A Prefect Task is a Python function decorated with the `@task` decorator that represents discrete units of work within a Prefect workflow (see source code `ml_pipeline.py`). `ml_pipeline.py` represents a machine learning pipeline that integrates MLflow for experiment tracking and Prefect for workflow management.
+A Prefect Task is a Python function decorated with the `@task` decorator that represents discrete units of work within a Prefect workflow. `ml_pipeline.py` represents a machine learning pipeline that integrates MLflow for experiment tracking and Prefect for workflow management.
 
 We can also customize the task decorator with optional arguments like name, description, tags, cache settings, retries, and more.
 
