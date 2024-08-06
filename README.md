@@ -14,7 +14,7 @@ The dataset used for this project is the "Bike Sharing Demand" dataset, which in
 ## Project details
 This repository has four folders: *data*, *notebooks*, *models*, and *src*.
 - The `data` folder contains the dataset for the project.
-- The `notebooks` folder contains Jupyter notebooks used for exploratory data analysis (EDA), feature engineering, and initial model experimentation.
+- The `notebooks` folder contains Jupyter notebooks used for exploratory data analysis (EDA), and initial model experimentation.
 - The `models` folder stores the trained machine learning models and any related artifacts.
 - The `src` folder contains the source codes for the project.
 
@@ -85,7 +85,7 @@ python src/ml_pipeline.py
 ```
 To run the deployment locally, we must build the “Deployment” by providing the file and flow function names.
 ```bash
-prefect deployment build src/ml_pipeline.py:ml_pipeline -n 'ml_pipeline_bike_sharing' -a --tag dev
+prefect deployment build src/ml_pipeline.py:ml_pipeline -n 'ml_pipeline_bike_sharing_analysis' -a --tag dev
 ```
 We will initialize the Prefect agents in a new terminal with the default work pool name.
 ```bash
@@ -93,7 +93,7 @@ prefect agent start -p 'default-agent-pool'
 ```
 Go to a new terminal and run the deployment
 ```bash
-prefect deployment run 'ml-pipeline/ml_pipeline_bike_sharing'
+prefect deployment run 'ml-pipeline/ml_pipeline_bike_sharing_analysis'
 ```
 
 To run using **Prefect UI**
