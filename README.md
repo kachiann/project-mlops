@@ -31,7 +31,7 @@ This repository has four folders: *data*, *notebooks*, *models*, and *src*.
 ## Implementation Details
 
 **1. Experiment Tracking and Model Registry**:
-- Used **[MLflow](https://mlflow.org/)** for tracking experiments, hyperparameters, metrics, and artifacts with a remote server.
+- Used **[MLflow](https://mlflow.org/)** for tracking experiments, metrics, and artifacts with a remote server.
 - Developed Linear Regression and Decision Tree Regressor using scikit-learn on the bike-sharing dataset.
 - Created a function to train models, log parameters, metrics (MAE, R2), and save models as artifacts and pickle files.
 ```bash
