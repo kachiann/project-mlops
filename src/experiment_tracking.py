@@ -75,8 +75,8 @@ def train_and_log_model(model, model_name, X_train, X_test, y_train, y_test, dat
 
 def main():
     # Path to the dataset
-    dataset_path = os.path.abspath('../MLops-Project/data/hour.csv')
-    
+    dataset_path = os.path.abspath('../project-mlops/data/hour.csv')
+ 
     # Check if the dataset file exists
     if not os.path.exists(dataset_path):
         raise FileNotFoundError(f"Dataset file not found at {dataset_path}")
