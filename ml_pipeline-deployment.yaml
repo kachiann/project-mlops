@@ -1,0 +1,44 @@
+###
+### A complete description of a Prefect Deployment for flow 'ml-pipeline'
+###
+name: ml_pipeline_bike_sharing_analysis
+description: null
+version: 3a4a2d5ed8debd910bdcb5205e41748f
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags:
+- dev
+parameters: {}
+schedule: null
+schedules: []
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: ml-pipeline
+manifest_path: null
+storage: null
+path: /workspaces/project-mlops
+entrypoint: src/ml_pipeline.py:ml_pipeline
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null
+timestamp: '2024-08-06T21:25:18.592597+00:00'
+triggers: []
+enforce_parameter_schema: null
