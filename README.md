@@ -112,7 +112,8 @@ In this project, we containerized the MLflow model using Docker and deployed it 
 
 The deployment includes:
 
-- **Dockerization**: Created a Docker image for the MLflow model server.
+- **Dockerization**: This involves packaging an application and its dependencies into a container, which can then run consistently on any system that supports Docker.
+Hence in this project I created a Docker image for the MLflow model server. That is, I encapsulated the MLflow server and all its dependencies into a single, portable image. See `Dockerfile`.
 - **Kubernetes Deployment**: Deployed the model as a Kubernetes deployment with three replicas and exposed it via a service. See `deployment.yaml`.
 - **Environment Configuration**: Set the `MLFLOW_TRACKING_URI` to connect to the MLflow server.
 - **Local Access**: Used port forwarding to expose the prediction endpoint.

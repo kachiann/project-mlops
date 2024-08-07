@@ -2,3 +2,4 @@ mlflow
 pandas
 scikit-learn
 prefect
+gunicorn
