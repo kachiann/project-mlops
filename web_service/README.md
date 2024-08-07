@@ -64,6 +64,7 @@ curl -X POST http://localhost:8080/predict -H "Content-Type: application/json" -
     "yr": 0
 }'
 ```
+![Alt text](images/curl.png)
 
 Or using Postman:
 - Open Postman and create a new request.
@@ -95,4 +96,3 @@ python web_service/test_predict.py
 
 This setup allows for real-time inference, providing immediate predictions on demand.
 
-![Alt text](images/Post.png)
