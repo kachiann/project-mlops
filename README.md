@@ -106,17 +106,18 @@ In the Deployment section in the Prefect UI, you can view the current Deployment
 ---
 
 **3. Model Deployment**:
-
-In this project, we containerized the MLflow model using Docker and deployed it on a Kubernetes cluster. 
-[**Kubernetes**](https://kubernetes.io/) is essential for machine learning model training and deployment.
+In this project, we containerized the MLflow model using Docker and deployed it on a Kubernetes cluster. [**Kubernetes**](https://kubernetes.io/) is essential for machine learning model training and deployment, offering automated management and scaling of containerized applications
 
 The deployment includes:
+- **Dockerization**: This involves packaging the MLflow model and its dependencies into a container, ensuring consistent execution across different environments. We created a Docker image for the MLflow model server, encapsulating the server and all its dependencies into a single, portable image. See `Dockerfile`.
 
-- **Dockerization**: This involves packaging an application and its dependencies into a container, which can then run consistently on any system that supports Docker.
-Hence in this project I created a Docker image for the MLflow model server. That is, I encapsulated the MLflow server and all its dependencies into a single, portable image. See `Dockerfile`.
-- **Kubernetes Deployment**: Deployed the model as a Kubernetes deployment with three replicas and exposed it via a service. See `deployment.yaml`.
-- **Environment Configuration**: Set the `MLFLOW_TRACKING_URI` to connect to the MLflow server.
-- **Local Access**: Used port forwarding to expose the prediction endpoint.
+- **Kubernetes Deployment**: Deployed the model as a Kubernetes deployment with three replicas and exposed it via a service. This configuration defines how the application runs in the Kubernetes cluster, leveraging features such as automated rollouts and rollbacks, and self-healing capabilities. See `deployment.yaml`.
+
+- **Environment Configuration**: Set the `MLFLOW_TRACKING_URI` to connect to the MLflow server, ensuring proper model tracking and versioning.
+- **Local Access**: Used port forwarding to expose the prediction endpoint, allowing for local testing and development.
+
+- **Scalability**: Kubernetes allows for easy horizontal scaling of the application, either manually or automatically based on CPU usage.
+
 
 **Usage**: 
 
