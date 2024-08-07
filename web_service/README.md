@@ -79,14 +79,18 @@ Or using [**Postman**](https://www.postman.com/):
 ```bash
 minikube start
 ```
+#### 5. Apply Kubernetes Configuration
+```bash
+kubectl apply -f deployment.yaml
+```
 
-#### 5. Start Port Forwarding:
+#### 6. Start Port Forwarding:
 
 ```bash
 kubectl port-forward service/mlflow-model-service 5000:80
 ```
 
-#### 6. Send a Prediction Request:
+#### 7. Send a Prediction Request:
 
 Use the `test_predict.py` script to send a POST request. Run the script:
 
