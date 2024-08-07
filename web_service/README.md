@@ -68,7 +68,7 @@ curl -X POST http://localhost:8080/predict -H "Content-Type: application/json" -
 
 Or using [**Postman**](https://www.postman.com/):
 - Open Postman and create a new request.
-- Set the request type to POST.
+- Set the request type to **POST**.
 - Enter the URL: `http://localhost:8080/predict`.
 - Go to the Body tab and select `raw`.
 - Choose JSON from the dropdown.
