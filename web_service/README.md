@@ -97,6 +97,6 @@ Use the `test_predict.py` script to send a POST request. Run the script:
 ```bash
 python web_service/test_predict.py
 ```
-![Alt text](images/Post.png)
+![Alt text](images/post.png)
 This setup allows for real-time inference, providing immediate predictions on demand.
 
