@@ -83,9 +83,15 @@ minikube start
 ```bash
 kubectl apply -f deployment.yaml
 ```
+**Verify the Deployment**:
+- After applying the YAML file, you can verify that the deployment was created successfully by checking the status of the deployments and pods:
+```bash
+kubectl get deployments
+kubectl get pods
+```
 
 #### 6. Start Port Forwarding:
-
+To access the deployed service locally, you can set up port forwarding:
 ```bash
 kubectl port-forward service/mlflow-model-service 5000:80
 ```
@@ -97,6 +103,6 @@ Use the `test_predict.py` script to send a POST request. Run the script:
 ```bash
 python web_service/test_predict.py
 ```
-![Alt text](images/post.png)
+![Alt text](images/Post.png)
 This setup allows for real-time inference, providing immediate predictions on demand.
 
