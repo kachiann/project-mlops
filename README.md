@@ -114,7 +114,7 @@ The deployment includes:
 - **Kubernetes Deployment**: Deployed the model as a Kubernetes deployment with three replicas and exposed it via a service. This configuration defines how the application runs in the Kubernetes cluster, leveraging features such as automated rollouts and rollbacks, and self-healing capabilities. See `deployment.yaml`.
 
 - **Environment Configuration**: Set the `MLFLOW_TRACKING_URI` to connect to the MLflow server, ensuring proper model tracking and versioning. The configuration is handled in `deploy.py` in the web service folder, which sets up the environment and waits for the MLflow server to be available before loading the model.
-- **Local Access**: Used port forwarding to expose the prediction endpoint, allowing for local testing and development.
+- **Local Access**: Used port forwarding to expose the prediction endpoint, allowing for local testing and development. The **Flask** application defined in `deploy.py` serves as the interface for making predictions.
 
 - **Scalability**: Kubernetes allows for easy horizontal scaling of the application, either manually or automatically based on CPU usage.
 
