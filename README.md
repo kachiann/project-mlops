@@ -113,7 +113,7 @@ Sure! Here’s the updated section for **3. Model Deployment**, instructing user
 
 To deploy the trained machine learning models as a web service, we utilize Flask along with MLflow. The deployment script, `deploy.py`, is responsible for loading the model and serving predictions through a RESTful API.
 
-For detailed usage instructions, please refer to the web_service folder in this repository.
+For detailed usage instructions, please refer to the `web_service` folder in this repository.
 
 **Key Steps for Model Deployment**:
 
