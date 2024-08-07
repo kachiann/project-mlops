@@ -96,4 +96,3 @@ python web_service/test_predict.py
 
 This setup allows for real-time inference, providing immediate predictions on demand.
 
-![Alt text](images/Post.png)
