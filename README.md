@@ -138,6 +138,7 @@ python deploy.py
 7. **Kubernetes Deployment**: If intrested in deploying the Flask application on Kubernetes, a `deployment.yaml` file is provided in the `web_service` folder.
 
 By following the instructions in the web_service folder, you can successfully deploy the bike-sharing demand prediction model as a web service using Flask and MLflow, allowing users to make predictions via API calls.
+
 ---
 
 This version directs users to the `web_service` folder for detailed usage instructions while still providing an overview of the deployment process. Let me know if you need any further modifications!
