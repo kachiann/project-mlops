@@ -141,8 +141,6 @@ By following the instructions in the web_service folder, you can successfully de
 
 ---
 
-This version directs users to the `web_service` folder for detailed usage instructions while still providing an overview of the deployment process. Let me know if you need any further modifications!
-
 **4. Model Monitoring**:
 
 [**Evidently AI**](https://www.evidentlyai.com/) is an open-source Python library for monitoring ML models during development, validation, and in production. It checks data and model quality, data drift, target drift, and regression and classification performance. We will integrate Evidently AI into the project to enhance data and model monitoring capabilities.
