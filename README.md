@@ -105,7 +105,42 @@ In the Deployment section in the Prefect UI, you can view the current Deployment
 
 ---
 
+Sure! Here’s the updated section for **3. Model Deployment**, instructing users to refer to the web service for usage instructions:
 
+---
+
+**3. Model Deployment**:
+
+To deploy the trained machine learning models as a web service, we utilize Flask along with MLflow. The deployment script, `deploy.py`, is responsible for loading the model and serving predictions through a RESTful API.
+
+For detailed usage instructions, please refer to the web_service folder in this repository.
+
+**Key Steps for Model Deployment**:
+
+1. **Launch the MLflow Server**: Before running the deployment script, start the MLflow server locally by executing the following command:
+```bash
+mlflow server --backend-store-uri sqlite:///backend.db
+```
+
+2. **Run the Deployment Script**: Execute the `deploy.py` file to start the Flask API:
+```bash
+python deploy.py
+```
+
+3. **Model Loading and Prediction Logic**: The script automatically loads the latest production version of the registered model from MLflow for making predictions based on incoming requests.
+
+4. **Requirements**: The `requirements.txt` file lists the necessary dependencies for running the deployment script.
+
+5. **Containerization**: To deploy the application in a Docker container, a `Dockerfile`.
+
+6. **Testing the API**: Instructions for testing the deployed API are available in the `web_service` folder.
+
+7. **Kubernetes Deployment**: If intrested in deploying the Flask application on Kubernetes, a `deployment.yaml` file is provided in the `web_service` folder.
+
+By following the instructions in the web_service folder, you can successfully deploy the bike-sharing demand prediction model as a web service using Flask and MLflow, allowing users to make predictions via API calls.
+---
+
+This version directs users to the `web_service` folder for detailed usage instructions while still providing an overview of the deployment process. Let me know if you need any further modifications!
 
 **4. Model Monitoring**:
 
