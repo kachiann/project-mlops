@@ -12,11 +12,12 @@ By addressing these challenges through data analysis, the project aims to enhanc
 The dataset used for this project is the "Bike Sharing Demand" dataset, which includes historical data on bike rentals, weather conditions, and timestamps. This dataset is available on [UCI](https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset) Machine Learning Repository.
 
 ## Project details
-This repository has four folders: *data*, *notebooks*, *models*, and *src*.
-- The `data` folder contains the dataset for the project.
-- The `notebooks` folder contains Jupyter notebooks used for exploratory data analysis (EDA), and initial model experimentation.
-- The `models` folder stores the trained machine learning models and any related artifacts.
-- The `src` folder contains the source codes for the project.
+This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web_service*.
+- The [`data`](https://github.com/kachiann/project-mlops/tree/main/data) folder contains the dataset for the project.
+- The [`notebooks`](https://github.com/kachiann/project-mlops/tree/main/notebook) folder contains Jupyter notebooks used for exploratory data analysis (EDA), and initial model experimentation.
+- The [`models`](https://github.com/kachiann/project-mlops/tree/main/models) folder stores the trained machine learning models and any related artifacts.
+- The [`src`](https://github.com/kachiann/project-mlops/tree/main/src) folder contains the source codes for the project.
+- The [`web_service`](https://github.com/kachiann/project-mlops/tree/main/web_service) folder contains the source codes for the model deployment. 
 
 ## Additional files
 - **requirements.txt**
@@ -113,7 +114,7 @@ Sure! Here’s the updated section for **3. Model Deployment**, instructing user
 
 To deploy the trained machine learning models as a web service, we utilize Flask along with MLflow. The deployment script, `deploy.py`, is responsible for loading the model and serving predictions through a RESTful API.
 
-For detailed usage instructions, please refer to the `web_service` folder in this repository.
+For detailed usage instructions, please refer to the [**web_service**](https://github.com/kachiann/project-mlops/tree/main/web_service) folder in this repository.
 
 **Key Steps for Model Deployment**:
 
@@ -137,11 +138,9 @@ python deploy.py
 
 7. **Kubernetes Deployment**: If intrested in deploying the Flask application on Kubernetes, a `deployment.yaml` file is provided in the `web_service` folder.
 
-By following the instructions in the web_service folder, you can successfully deploy the bike-sharing demand prediction model as a web service using Flask and MLflow, allowing users to make predictions via API calls.
+By following the instructions in the **web_service** folder, you can successfully deploy the bike-sharing demand prediction model as a web service using Flask and MLflow, allowing users to make predictions via API calls.
 
 ---
-
-This version directs users to the `web_service` folder for detailed usage instructions while still providing an overview of the deployment process. Let me know if you need any further modifications!
 
 **4. Model Monitoring**:
 
