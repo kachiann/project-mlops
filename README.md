@@ -13,10 +13,11 @@ The dataset used for this project is the "Bike Sharing Demand" dataset, which in
 
 ## Project details
 This repository has four folders: *data*, *notebooks*, *models*, and *src*.
-- The `data` folder contains the dataset for the project.
-- The `notebooks` folder contains Jupyter notebooks used for exploratory data analysis (EDA), and initial model experimentation.
-- The `models` folder stores the trained machine learning models and any related artifacts.
-- The `src` folder contains the source codes for the project.
+- The [`data`](https://github.com/kachiann/project-mlops/tree/main/data) folder contains the dataset for the project.
+- The [`notebooks`](https://github.com/kachiann/project-mlops/tree/main/notebook) folder contains Jupyter notebooks used for exploratory data analysis (EDA), and initial model experimentation.
+- The [`models`](https://github.com/kachiann/project-mlops/tree/main/models) folder stores the trained machine learning models and any related artifacts.
+- The [`src`](https://github.com/kachiann/project-mlops/tree/main/src) folder contains the source codes for the project.
+- The [`web_service`](https://github.com/kachiann/project-mlops/tree/main/web_service) folder contains the source codes for the model deployment. 
 
 ## Additional files
 - **requirements.txt**
