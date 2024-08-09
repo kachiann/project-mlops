@@ -1,0 +1,5 @@
+# Ignore the database file
+backend.db
+
+# Ignore everything in the mlartifacts/ directory
+mlartifacts/
