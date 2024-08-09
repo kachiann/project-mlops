@@ -160,3 +160,4 @@ By following the instructions in the **web_service** folder, you can successfull
 ---
 
 5. **Best Practices**:
+*** 1. Linting and Formatting
