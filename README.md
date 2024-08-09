@@ -31,7 +31,7 @@ This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web
 
 ## Implementation Details
 
-**1. Experiment Tracking and Model Registry**:
+### 1. Experiment Tracking and Model Registry:
 - Used **[MLflow](https://mlflow.org/)** for tracking experiments, metrics, and artifacts with a remote server.
 - Developed Linear Regression and Decision Tree Regressor using scikit-learn on the bike-sharing dataset.
 - Created a function to train models, log parameters, metrics (MAE, R2), and save models as artifacts and pickle files.
@@ -50,7 +50,7 @@ python src/model_registry.py
 
 ---
 
-**2. Workflow Orchestration** (Fully deployed):
+### 2. Workflow Orchestration (Fully deployed):
 
 **[Prefect](https://www.prefect.io/)** is used to create and manage the entire ML pipeline. It is a powerful and open-source workflow orchestration tool that lets users design, monitor, and respond to data and machine learning pipelines using Python code. The `ml_pipeline.py` includes data ingestion, preprocessing, model training, evaluation, and deployment steps.
 
@@ -110,7 +110,7 @@ Sure! Here’s the updated section for **3. Model Deployment**, instructing user
 
 ---
 
-**3. Model Deployment**:
+### 3. Model Deployment:
 
 To deploy the trained machine learning models as a web service, we utilize Flask along with MLflow. The deployment script, `deploy.py`, is responsible for loading the model and serving predictions through a RESTful API.
 
@@ -142,7 +142,7 @@ By following the instructions in the **web_service** folder, you can successfull
 
 ---
 
-**4. Model Monitoring**:
+### 4. Model Monitoring:
 
 [**Evidently AI**](https://www.evidentlyai.com/) is an open-source Python library for monitoring ML models during development, validation, and in production. It checks data and model quality, data drift, target drift, and regression and classification performance. We will integrate Evidently AI into the project to enhance data and model monitoring capabilities.
 
@@ -159,5 +159,12 @@ By following the instructions in the **web_service** folder, you can successfull
 ![Alt text](images/Evidently.png)
 ---
 
-5. **Best Practices**:
-*** 1. Linting and Formatting
+5. ### Best Practices:
+   #### To-Do List
+- [x] Reproducibility 
+- [ ] Unit Tests
+- [ ] Integration test
+- [ ] Linter and/or formatter
+- [ ] Makefile
+- [ ] pre-commit hooks
+- [ ] CI/CD pipeline
