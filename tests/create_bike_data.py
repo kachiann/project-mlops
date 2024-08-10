@@ -25,7 +25,7 @@ json_str = json.dumps(data)
 base64_str = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
 
 # Write the base64 string to a file
-with open("bike_data.b64", "w") as f_out:
-    f_out.write(base64_str)
+with open("file_path", "r", encoding="utf-8") as f:
+    f.write(base64_str)
 
 print("Successfully created bike_data.b64")
