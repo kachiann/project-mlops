@@ -144,7 +144,7 @@ def main():
         stage="Production"
     )
 
-    print("\nExperiment Tracking Completed")
+    print("\nExperiment Tracking all Completed")
     print(f"Linear Regression Run ID: {lr_run_id}")
     print(f"Decision Tree Regressor Run ID: {dt_run_id}")
 
