@@ -45,11 +45,12 @@ def test_prepare_features():
     """
     model_service = model.ModelService(None)
 
-    ride = BIKE_DATA_TEMPLATE["ride"]  # Use the template for consistency
+    # Use the existing structure directly
+    actual_features = model_service.prepare_features(
+        BIKE_DATA_TEMPLATE
+    )  # Pass the whole template or adjust accordingly
 
-    actual_features = model_service.prepare_features(ride)
-
-    expected_features = BIKE_DATA_TEMPLATE["ride"]  # Use the template for consistency
+    expected_features = BIKE_DATA_TEMPLATE  # Use the same structure for consistency
 
     assert actual_features == expected_features
 
@@ -84,7 +85,7 @@ def test_predict():
     model_mock = ModelMock(100.0)
     model_service = model.ModelService(model_mock)
 
-    features = BIKE_DATA_TEMPLATE["ride"]  # Use the template for consistency
+    features = BIKE_DATA_TEMPLATE  # Use the template for consistency
 
     actual_prediction = model_service.predict(features)
     expected_prediction = 100.0

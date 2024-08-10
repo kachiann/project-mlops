@@ -12,7 +12,6 @@ import mlflow
 import pandas as pd
 import requests
 from flask import Flask, jsonify, request
-
 from src.constants import FEATURES
 
 
@@ -25,9 +24,9 @@ def wait_for_mlflow_server(url, max_retries=30, delay=10):
             if response.status_code == 200:
                 print("MLflow server is up and running!")
                 return True
-        except requests.exceptions.RequestException as e:
+        except requests.exceptions.RequestException as expectation:
             print(
-                f"Attempt {attempt + 1}/{max_retries}: MLflow server not ready. Error: {e}"
+                f"Attempt {attempt + 1}/{max_retries}: MLflow server not ready. Error: {expectation}"
             )
             if attempt < max_retries - 1:
                 print(f"Retrying in {delay} seconds...")
