@@ -14,7 +14,7 @@ except json.JSONDecodeError:
     exit(1)
 
 # Define the API endpoint URL
-url = 'http://localhost:8080/predict'  # Update to your correct endpoint
+url = 'http://localhost:8080/predict'
 
 # Send a POST request to the endpoint
 try:
@@ -31,15 +31,7 @@ print(json.dumps(actual_response, indent=2))
 
 # Define the expected response format
 expected_response = {
-    'predictions': [
-        {
-            'model': 'bike_sharing_prediction_model',
-            'version': 'Test123',
-            'prediction': {
-                'prediction_result': 132.0  # Expected value
-            },
-        }
-    ]
+    'prediction': [132.0] 
 }
 
 # Compare actual and expected responses
