@@ -144,7 +144,7 @@ By following the instructions in the **web_service** folder, you can successfull
 
 ### 4. Model Monitoring:
 
-[**Evidently AI**](https://www.evidentlyai.com/) is an open-source Python library for monitoring ML models during development, validation, and in production. It checks data and model quality, data drift, target drift, and regression and classification performance. We will integrate Evidently AI into the project to enhance data and model monitoring capabilities. In the folder `notebooks` you can find the 
+[**Evidently AI**](https://www.evidentlyai.com/) is an open-source Python library for monitoring ML models during development, validation, and in production. It checks data and model quality, data drift, target drift, and regression and classification performance. We will integrate Evidently AI into the project to enhance data and model monitoring capabilities. In the folder `notebooks` you can find the evidently notebook.
 
 **Usage**:
 1. Install Evidently AI library
