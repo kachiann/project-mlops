@@ -1,3 +1,4 @@
+max-line-length = 100
 
 [tool.pylint.messages_control]
 disable = [
@@ -5,4 +6,4 @@ disable = [
     "missing-function-docstring",
     "invalid-name",
     "too-many-arguments",      
-    "too-many-locals"         
+    "too-many-locals"   ]      
