@@ -5,3 +5,4 @@ prefect
 gunicorn
 flask
 requests
+evidently
