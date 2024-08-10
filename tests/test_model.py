@@ -43,8 +43,7 @@ def test_base64_decode():
             "hr": 10,
             "mnth": 6,
             "yr": 1
-        },
-        "ride_id": 256,
+        }
     }
 
     assert actual_result == expected_result
@@ -165,8 +164,7 @@ def test_lambda_handler():
                 'model': 'bike_sharing_prediction_model',
                 'version': model_version,
                 'prediction': {
-                    'prediction_result': 100.0,
-                    'ride_id': 256,
+                    'prediction_result': 100.0
                 },
             }
         ]
