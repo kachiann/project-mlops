@@ -183,6 +183,7 @@ Added docstrings, improved variable naming, and addressed Pylint issues
 
 - [x] Makefile
 
+![Alt text](images/makefile.png)
 
 - [ ] pre-commit hooks
 - [ ] CI/CD pipeline
