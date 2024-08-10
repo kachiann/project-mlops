@@ -15,9 +15,7 @@ def test_prediction():
     """
     # Load event data from the JSON file
     try:
-        with open(
-            "../tests/integration-test/event.json", "rt", encoding="utf-8"
-        ) as f_in:
+        with open("tests/integration-test/event.json", "rt", encoding="utf-8") as f_in:
             event = json.load(f_in)
     except FileNotFoundError:
         print("Error: event.json file not found.")
