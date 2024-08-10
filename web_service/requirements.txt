@@ -3,3 +3,4 @@ pandas
 scikit-learn
 gunicorn
 flask
+deepdiff
