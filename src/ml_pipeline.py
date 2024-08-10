@@ -7,7 +7,7 @@ from prefect import flow, task
 from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
-
+from src.constants import FEATURES
 
 @task
 def read_data():
@@ -17,20 +17,7 @@ def read_data():
 
 @task
 def preprocess_data(df):
-    features = [
-        "season",
-        "holiday",
-        "workingday",
-        "weathersit",
-        "temp",
-        "atemp",
-        "hum",
-        "windspeed",
-        "hr",
-        "mnth",
-        "yr",
-    ]
-    X = df[features]
+    X = df[FEATURES]
     y = df["cnt"]
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42

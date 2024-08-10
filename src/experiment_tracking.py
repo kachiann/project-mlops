@@ -16,6 +16,8 @@ from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 
+from src.constants import FEATURES
+
 # Set the remote tracking URI
 REMOTE_TRACKING_URI = "http://127.0.0.1:5000"
 mlflow.set_tracking_uri(REMOTE_TRACKING_URI)
@@ -106,22 +108,8 @@ def main():
     if not os.path.exists(dataset_path):
         raise FileNotFoundError(f"Dataset file not found at {dataset_path}")
 
-    # Load and prepare data
     df = pd.read_csv(dataset_path)
-    features = [
-        "season",
-        "holiday",
-        "workingday",
-        "weathersit",
-        "temp",
-        "atemp",
-        "hum",
-        "windspeed",
-        "hr",
-        "mnth",
-        "yr",
-    ]
-    x = df[features]  # Renamed from X to x
+    x = df[FEATURES]  # Use the imported FEATURES constant
     y = df["cnt"]
 
     # Split the dataset
