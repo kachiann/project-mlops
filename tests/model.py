@@ -91,7 +91,6 @@ class ModelService:
             base64_input = record['kinesis']['data']
             ride_event = self.base64_decode(base64_input)
             ride = ride_event['ride']
-            ride_id = ride_event['ride_id']
 
             features = self.prepare_features(ride)
             prediction_result = self.predict(features)
@@ -100,8 +99,7 @@ class ModelService:
                 'model': 'bike_sharing_prediction_model',
                 'version': self.version,
                 'prediction': {
-                    'prediction_result': prediction_result,
-                    'ride_id': ride_id,
+                    'prediction_result': prediction_result
                 },
             }
             predictions.append(result)
