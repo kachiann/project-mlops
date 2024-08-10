@@ -1,6 +1,6 @@
-# Ignore the database file
-backend.db
+# Ignore Python compiled files
+__pycache__/
+*.pyc
 
-# Ignore everything in the mlartifacts/ directory
-mlartifacts/
-venv/
+# Ignore VS Code settings
+.vscode/
