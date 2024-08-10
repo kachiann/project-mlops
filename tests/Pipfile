@@ -4,6 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+deepdiff = "*"
+pytest = "*"
+requests = "*"
+mlflow = "*"
+pandas = "*"
+flask = "*"
 
 [dev-packages]
 pylint = "*"
