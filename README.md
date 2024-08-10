@@ -165,7 +165,18 @@ By following the instructions in the **web_service** folder, you can successfull
 - [x] Unit Tests
 - [ ] Integration test
 - [x] Linter and/or formatter
-      ![Alt text](images/pylint_final.png)
+![Alt text](images/pylint_final.png)
+
+---
+
+![Alt text](images/pylint_unit_test.png)
+
+---
+
+Added docstrings, improved variable naming, and addressed Pylint issues
+
+![Alt text](images/pylint_unit_final.png)
+
 - [ ] Makefile
 - [ ] pre-commit hooks
 - [ ] CI/CD pipeline
