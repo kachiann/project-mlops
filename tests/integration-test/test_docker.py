@@ -3,6 +3,7 @@ Integration test for Docker prediction API.
 """
 
 import json
+import sys
 
 import requests
 from deepdiff import DeepDiff
@@ -20,22 +21,22 @@ def test_prediction():
             event = json.load(f_in)
     except FileNotFoundError:
         print("Error: event.json file not found.")
-        exit(1)
+        sys.exit(1)
     except json.JSONDecodeError:
         print("Error: event.json file is not valid JSON.")
-        exit(1)
+        sys.exit(1)
 
     # Define the API endpoint URL
     url = "http://localhost:8080/predict"
 
     # Send a POST request to the endpoint
     try:
-        response = requests.post(url, json=event)
+        response = requests.post(url, json=event, timeout=10)
         response.raise_for_status()  # Raise an error for bad responses
         actual_response = response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error while sending request: {e}")
-        exit(1)
+    except requests.exceptions.RequestException as request_error:
+        print(f"Error while sending request: {request_error}")
+        sys.exit(1)
 
     # Print the actual response for debugging
     print("Actual response:")
