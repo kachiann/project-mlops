@@ -9,4 +9,6 @@ disable = [
     "unused-variable",
     "too-many-arguments", 
     "line-too-long",    
-    "too-many-locals"   ]      
+    "too-many-locals",
+    "broad-exception-raised",
+    "broad-exception-caught"   ]      

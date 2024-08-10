@@ -12,14 +12,14 @@ import mlflow
 import pandas as pd
 import requests
 from flask import Flask, jsonify, request
-from mlflow.sklearn import load_model
 
 
 def wait_for_mlflow_server(url, max_retries=30, delay=10):
+    # pylint: disable = inconsistent-return-statements
     """Wait until the MLflow server is available."""
     for attempt in range(max_retries):
         try:
-            response = requests.get(f"{url}/health")
+            response = requests.get(f"{url}/health", timeout=5)
             if response.status_code == 200:
                 print("MLflow server is up and running!")
                 return True
@@ -61,7 +61,7 @@ try:
     print(
         f"Successfully loaded model {model_name} version {production_model[0].version}"
     )
-except Exception as e:
+except mlflow.exceptions.MlflowException as e:
     print(f"Error loading model: {e}")
     raise
 
@@ -116,8 +116,8 @@ def predict():
     try:
         prediction = model.predict(input_data)
         return jsonify({"prediction": prediction.tolist()})
-    except Exception as e:
-        return jsonify({"error": f"Prediction error: {str(e)}"}), 500
+    except Exception as expectation:
+        return jsonify({"error": f"Prediction error: {str(expectation)}"}), 500
 
 
 @app.route("/favicon.ico")
