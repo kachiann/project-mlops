@@ -1,6 +1,8 @@
 import json
+
 import requests
 from deepdiff import DeepDiff
+
 
 def test_prediction():
     """
@@ -8,7 +10,9 @@ def test_prediction():
     """
     # Load event data from the JSON file
     try:
-        with open('../tests/integration-test/event.json', 'rt', encoding='utf-8') as f_in:
+        with open(
+            "../tests/integration-test/event.json", "rt", encoding="utf-8"
+        ) as f_in:
             event = json.load(f_in)
     except FileNotFoundError:
         print("Error: event.json file not found.")
@@ -18,7 +22,7 @@ def test_prediction():
         exit(1)
 
     # Define the API endpoint URL
-    url = 'http://localhost:8080/predict'
+    url = "http://localhost:8080/predict"
 
     # Send a POST request to the endpoint
     try:
@@ -30,20 +34,18 @@ def test_prediction():
         exit(1)
 
     # Print the actual response for debugging
-    print('Actual response:')
+    print("Actual response:")
     print(json.dumps(actual_response, indent=2))
 
     # Define the expected response format
-    expected_response = {
-        'prediction': [132.0] 
-    }
+    expected_response = {"prediction": [132.0]}
 
     # Compare actual and expected responses
     diff = DeepDiff(actual_response, expected_response, significant_digits=1)
-    print(f'diff={diff}')
+    print(f"diff={diff}")
 
     # Assert that there are no differences in the expected values
-    if 'type_changes' in diff or 'values_changed' in diff:
+    if "type_changes" in diff or "values_changed" in diff:
         print("Differences found between actual and expected responses:")
         print(diff)
         assert False  # Mark the test as failed

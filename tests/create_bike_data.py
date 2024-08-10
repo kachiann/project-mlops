@@ -14,19 +14,19 @@ data = {
         "windspeed": 0.2,
         "hr": 10,
         "mnth": 6,
-        "yr": 1
+        "yr": 1,
     },
-    "ride_id": 256
+    "ride_id": 256,
 }
 
 # Convert the data to a JSON string
 json_str = json.dumps(data)
 
 # Encode the JSON string to base64
-base64_str = base64.b64encode(json_str.encode('utf-8')).decode('utf-8')
+base64_str = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
 
 # Write the base64 string to a file
-with open('bike_data.b64', 'w') as f_out:
+with open("bike_data.b64", "w") as f_out:
     f_out.write(base64_str)
 
 print("Successfully created bike_data.b64")

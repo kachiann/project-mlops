@@ -4,6 +4,7 @@ This module contains tests for the ModelService class.
 """
 
 from pathlib import Path
+
 import model
 
 
@@ -19,7 +20,7 @@ def read_text(file):
     """
     test_directory = Path(__file__).parent
 
-    with open(test_directory / file, 'rt', encoding='utf-8') as f_in:
+    with open(test_directory / file, "rt", encoding="utf-8") as f_in:
         return f_in.read().strip()
 
 
@@ -27,7 +28,7 @@ def test_base64_decode():
     """
     Tests the base64_decode method of the ModelService class.
     """
-    base64_input = read_text('bike_data.b64')
+    base64_input = read_text("bike_data.b64")
 
     actual_result = model.ModelService(None).base64_decode(base64_input)
     expected_result = {
@@ -42,7 +43,7 @@ def test_base64_decode():
             "windspeed": 0.2,
             "hr": 10,
             "mnth": 6,
-            "yr": 1
+            "yr": 1,
         }
     }
 
@@ -66,7 +67,7 @@ def test_prepare_features():
         "windspeed": 0.2,
         "hr": 10,
         "mnth": 6,
-        "yr": 1
+        "yr": 1,
     }
 
     actual_features = model_service.prepare_features(ride)
@@ -82,7 +83,7 @@ def test_prepare_features():
         "windspeed": 0.2,
         "hr": 10,
         "mnth": 6,
-        "yr": 1
+        "yr": 1,
     }
 
     assert actual_features == expected_features
@@ -93,6 +94,7 @@ class ModelMock:
     """
     A mock model for testing predictions.
     """
+
     def __init__(self, value):
         self.value = value
 
@@ -128,7 +130,7 @@ def test_predict():
         "windspeed": 0.2,
         "hr": 10,
         "mnth": 6,
-        "yr": 1
+        "yr": 1,
     }
 
     actual_prediction = model_service.predict(features)
@@ -142,10 +144,10 @@ def test_lambda_handler():
     Tests the lambda_handler method of the ModelService class.
     """
     model_mock = ModelMock(100.0)
-    model_version = 'Test123'
+    model_version = "Test123"
     model_service = model.ModelService(model_mock, model_version)
 
-    base64_input = read_text('bike_data.b64')
+    base64_input = read_text("bike_data.b64")
 
     event = {
         "Records": [
@@ -159,13 +161,11 @@ def test_lambda_handler():
 
     actual_predictions = model_service.lambda_handler(event)
     expected_predictions = {
-        'predictions': [
+        "predictions": [
             {
-                'model': 'bike_sharing_prediction_model',
-                'version': model_version,
-                'prediction': {
-                    'prediction_result': 100.0
-                },
+                "model": "bike_sharing_prediction_model",
+                "version": model_version,
+                "prediction": {"prediction_result": 100.0},
             }
         ]
     }
