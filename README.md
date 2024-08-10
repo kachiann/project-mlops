@@ -163,6 +163,7 @@ By following the instructions in the **web_service** folder, you can successfull
    #### To-Do List
 - [x] Reproducibility 
 - [x] Unit Tests
+![Alt text](images/unit_test.png)
 - [ ] Integration test
 - [x] Linter and/or formatter
 ![Alt text](images/pylint_final.png)
