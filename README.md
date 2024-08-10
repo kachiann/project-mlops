@@ -164,7 +164,7 @@ By following the instructions in the **web_service** folder, you can successfull
 - [x] Reproducibility 
 - [x] Unit Tests
 - [ ] Integration test
-- [ ] Linter and/or formatter
+- [x] Linter and/or formatter
 - [ ] Makefile
 - [ ] pre-commit hooks
 - [ ] CI/CD pipeline
