@@ -1,10 +1,9 @@
-max-line-length = 100
-
 [tool.pylint.messages_control]
+
 disable = [
     "missing-class-docstring", 
     "missing-function-docstring",
     "invalid-name",
-    "too-many-arguments",      # You might want to address this in code rather than disabling
-    "too-many-locals"          # Same as above
+    "too-many-arguments",      
+    "too-many-locals"        
 ]
