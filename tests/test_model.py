@@ -90,6 +90,7 @@ def test_prepare_features():
 
 
 class ModelMock:
+    # pylint: disable=too-few-public-methods
     """
     A mock model for testing predictions.
     """
