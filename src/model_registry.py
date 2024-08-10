@@ -1,10 +1,11 @@
+import os
+import pickle
+
 import mlflow
 from mlflow import MlflowClient
-import pickle
-import os
 
 # Set the remote tracking URI
-remote_tracking_uri = "http://127.0.0.1:5000" 
+remote_tracking_uri = "http://127.0.0.1:5000"
 mlflow.set_tracking_uri(remote_tracking_uri)
 
 print(f"MLflow tracking URI set to: {mlflow.get_tracking_uri()}")
@@ -13,24 +14,26 @@ print(f"MLflow tracking URI set to: {mlflow.get_tracking_uri()}")
 models_dir = os.path.join(os.getcwd(), "models")
 os.makedirs(models_dir, exist_ok=True)
 
+
 def register_model(run_id, model_name):
     model_uri = f"runs:/{run_id}/model"
     registered_model_name = f"{model_name}_registered"
     registered_model = mlflow.register_model(model_uri, registered_model_name)
-    
+
     print(f"Registered model name: {registered_model_name}")
     print(f"Registered model version: {registered_model.version}")
-    
+
     # Transition the model to Production stage
     client = MlflowClient()
     client.transition_model_version_stage(
-        name=registered_model_name,
-        version=registered_model.version,
-        stage="Production"
+        name=registered_model_name, version=registered_model.version, stage="Production"
     )
-    print(f"Transitioned {registered_model_name} version {registered_model.version} to Production stage")
-    
+    print(
+        f"Transitioned {registered_model_name} version {registered_model.version} to Production stage"
+    )
+
     return registered_model_name, registered_model.version
+
 
 def compare_models(lr_run_id, dt_run_id):
     client = MlflowClient()
@@ -38,23 +41,35 @@ def compare_models(lr_run_id, dt_run_id):
     dt_run = client.get_run(dt_run_id)
 
     print("\nModel Comparison:")
-    print("Linear Regression - MAE:", lr_run.data.metrics['mae'], "R2:", lr_run.data.metrics['r2'])
-    print("Decision Tree Regressor - MAE:", dt_run.data.metrics['mae'], "R2:", dt_run.data.metrics['r2'])
+    print(
+        "Linear Regression - MAE:",
+        lr_run.data.metrics["mae"],
+        "R2:",
+        lr_run.data.metrics["r2"],
+    )
+    print(
+        "Decision Tree Regressor - MAE:",
+        dt_run.data.metrics["mae"],
+        "R2:",
+        dt_run.data.metrics["r2"],
+    )
+
 
 def load_model_from_pickle(run_id, model_name):
     client = MlflowClient()
     artifact_path = client.download_artifacts(run_id, f"models/{model_name}.pkl")
-    
-    with open(artifact_path, 'rb') as f:
+
+    with open(artifact_path, "rb") as f:
         model = pickle.load(f)
-    
+
     # Save the model in the local models directory
     local_model_path = os.path.join(models_dir, f"{model_name}.pkl")
-    with open(local_model_path, 'wb') as f:
+    with open(local_model_path, "wb") as f:
         pickle.dump(model, f)
-    
+
     print(f"Loaded {model_name} from MLflow and saved to {local_model_path}")
     return model
+
 
 def main():
     # Get run IDs from the user
@@ -76,6 +91,7 @@ def main():
     # Load models from pickle files
     lr_model = load_model_from_pickle(lr_run_id, "LinearRegression")
     dt_model = load_model_from_pickle(dt_run_id, "DecisionTreeRegressor")
+
 
 if __name__ == "__main__":
     main()

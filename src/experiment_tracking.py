@@ -6,14 +6,15 @@ mlflow server --backend-store-uri sqlite:///backend.db
 
 import os
 import pickle
-import pandas as pd
+
 import mlflow
 import mlflow.sklearn
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import r2_score, mean_absolute_error
+import pandas as pd
 from mlflow import MlflowClient
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
 
 # Set the remote tracking URI
 REMOTE_TRACKING_URI = "http://127.0.0.1:5000"
@@ -29,7 +30,10 @@ mlflow.set_experiment(EXPERIMENT_NAME)
 models_dir = os.path.join(os.getcwd(), "models")
 os.makedirs(models_dir, exist_ok=True)
 
-def train_and_log_model(model, model_name, x_train, x_test, y_train, y_test, dataset_path):
+
+def train_and_log_model(
+    model, model_name, x_train, x_test, y_train, y_test, dataset_path
+):
     """Train a model and log relevant information to MLflow.
 
     Args:
@@ -73,7 +77,7 @@ def train_and_log_model(model, model_name, x_train, x_test, y_train, y_test, dat
         # Log metrics
         mae = mean_absolute_error(y_test, predictions)
         r2 = r2_score(y_test, predictions)
-        mlflow.log_metric('mae', mae)
+        mlflow.log_metric("mae", mae)
         mlflow.log_metric("r2", r2)
 
         # Log model with MLflow
@@ -81,7 +85,7 @@ def train_and_log_model(model, model_name, x_train, x_test, y_train, y_test, dat
 
         # Save model with pickle in the models folder
         pickle_path = os.path.join(models_dir, f"{model_name}.pkl")
-        with open(pickle_path, 'wb') as f:
+        with open(pickle_path, "wb") as f:
             pickle.dump(model, f)
 
         # Log the pickle file as an artifact
@@ -92,10 +96,11 @@ def train_and_log_model(model, model_name, x_train, x_test, y_train, y_test, dat
 
         return run.info.run_id
 
+
 def main():
     """Main function to load data, train models, and log to MLflow."""
     # Path to the dataset
-    dataset_path = os.path.abspath('../data/hour.csv')
+    dataset_path = os.path.abspath("../data/hour.csv")
 
     # Check if the dataset file exists
     if not os.path.exists(dataset_path):
@@ -103,13 +108,26 @@ def main():
 
     # Load and prepare data
     df = pd.read_csv(dataset_path)
-    features = ['season', 'holiday', 'workingday', 'weathersit', 'temp', 'atemp',
-                'hum', 'windspeed', 'hr', 'mnth', 'yr']
+    features = [
+        "season",
+        "holiday",
+        "workingday",
+        "weathersit",
+        "temp",
+        "atemp",
+        "hum",
+        "windspeed",
+        "hr",
+        "mnth",
+        "yr",
+    ]
     x = df[features]  # Renamed from X to x
-    y = df['cnt']
+    y = df["cnt"]
 
     # Split the dataset
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, random_state=42
+    )
 
     # Log the datasets in a separate run
     with mlflow.start_run(run_name="Dataset Logging"):
@@ -130,37 +148,53 @@ def main():
 
     # Train and log Linear Regression
     lr_run_id = train_and_log_model(
-        LinearRegression(n_jobs=1), "LinearRegression", x_train, x_test, y_train, y_test, dataset_path
+        LinearRegression(n_jobs=1),
+        "LinearRegression",
+        x_train,
+        x_test,
+        y_train,
+        y_test,
+        dataset_path,
     )
 
     # Register and transition Linear Regression model to Production
     client = MlflowClient()
     lr_model_uri = f"runs:/{lr_run_id}/model"
-    lr_registered_model = mlflow.register_model(lr_model_uri, "LinearRegression_registered")
+    lr_registered_model = mlflow.register_model(
+        lr_model_uri, "LinearRegression_registered"
+    )
     client.transition_model_version_stage(
         name=lr_registered_model.name,
         version=lr_registered_model.version,
-        stage="Production"
+        stage="Production",
     )
 
     # Train and log Decision Tree Regressor
     dt_run_id = train_and_log_model(
-        DecisionTreeRegressor(), "DecisionTreeRegressor", x_train, x_test, y_train, y_test, dataset_path
+        DecisionTreeRegressor(),
+        "DecisionTreeRegressor",
+        x_train,
+        x_test,
+        y_train,
+        y_test,
+        dataset_path,
     )
 
     # Register and transition Decision Tree Regressor model to Production
     dt_model_uri = f"runs:/{dt_run_id}/model"
-    dt_registered_model = mlflow.register_model(dt_model_uri, "DecisionTreeRegressor_registered")
+    dt_registered_model = mlflow.register_model(
+        dt_model_uri, "DecisionTreeRegressor_registered"
+    )
     client.transition_model_version_stage(
         name=dt_registered_model.name,
         version=dt_registered_model.version,
-        stage="Production"
+        stage="Production",
     )
 
     print("\nExperiment Tracking all Completed")
     print(f"Linear Regression Run ID: {lr_run_id}")
     print(f"Decision Tree Regressor Run ID: {dt_run_id}")
 
+
 if __name__ == "__main__":
     main()
-

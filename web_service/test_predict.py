@@ -1,5 +1,6 @@
-import requests
 import json
+
+import requests
 
 url = "http://localhost:8080/predict"
 data = {
@@ -13,7 +14,7 @@ data = {
     "windspeed": 0.2,
     "hr": 10,
     "mnth": 6,
-    "yr": 1
+    "yr": 1,
 }
 
 try:
