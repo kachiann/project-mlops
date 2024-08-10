@@ -1,19 +1,4 @@
 # utils.py
-FEATURES = [
-    "season",
-    "holiday",
-    "workingday",
-    "weathersit",
-    "temp",
-    "atemp",
-    "hum",
-    "windspeed",
-    "hr",
-    "mnth",
-    "yr",
-]
-
-
 BIKE_DATA_TEMPLATE = {
     "season": 1,
     "holiday": 0,

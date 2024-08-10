@@ -13,6 +13,8 @@ import pandas as pd
 import requests
 from flask import Flask, jsonify, request
 
+from src.constants import FEATURES
+
 
 def wait_for_mlflow_server(url, max_retries=30, delay=10):
     # pylint: disable = inconsistent-return-statements
@@ -79,19 +81,6 @@ def index():
 def predict():
     """Handle prediction requests."""
     data = request.json
-    features = [
-        "season",
-        "holiday",
-        "workingday",
-        "weathersit",
-        "temp",
-        "atemp",
-        "hum",
-        "windspeed",
-        "hr",
-        "mnth",
-        "yr",
-    ]
 
     # Check if input data is present and is a dictionary
     if not data or not isinstance(data, dict):
@@ -102,7 +91,7 @@ def predict():
 
     # Ensure all required features are present
     missing_features = [
-        feature for feature in features if feature not in input_data.columns
+        feature for feature in FEATURES if feature not in input_data.columns
     ]
     if missing_features:
         return (
@@ -111,7 +100,7 @@ def predict():
         )
 
     # Select only the required features in the correct order
-    input_data = input_data[features]
+    input_data = input_data[FEATURES]
 
     try:
         prediction = model.predict(input_data)

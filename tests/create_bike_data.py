@@ -1,25 +1,10 @@
 import base64
 import json
 
-# Create the data you want to encode
-data = {
-    "ride": {
-        "season": 1,
-        "holiday": 0,
-        "workingday": 1,
-        "weathersit": 1,
-        "temp": 0.3,
-        "atemp": 0.3,
-        "hum": 0.5,
-        "windspeed": 0.2,
-        "hr": 10,
-        "mnth": 6,
-        "yr": 1,
-    }
-}
+from tests.utils import BIKE_DATA_TEMPLATE
 
 # Convert the data to a JSON string
-json_str = json.dumps(data)
+json_str = json.dumps(BIKE_DATA_TEMPLATE)
 
 # Encode the JSON string to base64
 base64_str = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
