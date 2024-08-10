@@ -3,3 +3,6 @@
 disable = ["missing-class-docstring", 
             "missing-function-docstring",
             "invalid-name" ]
+[tool.pylint]
+init-hook = "import sys; sys.path.append('/Users/kachiemenike/.local/share/virtualenvs/tests-hh_1SvNs/lib/python3.11/site-packages')"
+
