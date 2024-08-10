@@ -15,8 +15,7 @@ data = {
         "hr": 10,
         "mnth": 6,
         "yr": 1,
-    },
-    "ride_id": 256,
+    }
 }
 
 # Convert the data to a JSON string
