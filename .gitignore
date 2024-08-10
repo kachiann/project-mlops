@@ -3,3 +3,4 @@ backend.db
 
 # Ignore everything in the mlartifacts/ directory
 mlartifacts/
+venv/
