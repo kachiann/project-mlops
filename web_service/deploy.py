@@ -1,5 +1,6 @@
 """
-To run this file you need to launch the MLflow server locally by running the following command in your terminal:
+To run this file you need to launch the MLflow server locally by 
+running the following command in your terminal:
 
 mlflow server --backend-store-uri sqlite:///backend.db
 """
@@ -13,6 +14,7 @@ from flask import Flask, request, jsonify
 import pandas as pd
 
 def wait_for_mlflow_server(url, max_retries=30, delay=10):
+    """Wait until the MLflow server is available."""
     for attempt in range(max_retries):
         try:
             response = requests.get(f"{url}/health")
@@ -42,11 +44,14 @@ try:
     client = mlflow.tracking.MlflowClient()
     
     # Get the Production version of the model
-    production_model = client.get_latest_versions(model_name, stages=["Production"])[0]
+    production_model = client.get_latest_versions(model_name, stages=["Production"])
     
-    print(f"Loading model '{model_name}' version {production_model.version}")
-    model = mlflow.sklearn.load_model(f"models:/{model_name}/{production_model.version}")
-    print(f"Successfully loaded model {model_name} version {production_model.version}")
+    if not production_model:
+        raise Exception(f"No production model found for '{model_name}'.")
+
+    print(f"Loading model '{model_name}' version {production_model[0].version}")
+    model = mlflow.sklearn.load_model(f"models:/{model_name}/{production_model[0].version}")
+    print(f"Successfully loaded model {model_name} version {production_model[0].version}")
 except Exception as e:
     print(f"Error loading model: {e}")
     raise
@@ -56,34 +61,45 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    """Return a welcome message."""
     return "Welcome to the ML Prediction API. Use the /predict endpoint to make predictions."
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    """Handle prediction requests."""
     data = request.json
     features = ['season', 'holiday', 'workingday', 'weathersit', 'temp', 'atemp', 
                 'hum', 'windspeed', 'hr', 'mnth', 'yr']
     
-    # Create a list with a single dictionary to ensure a DataFrame with one row
+    # Check if input data is present and is a dictionary
+    if not data or not isinstance(data, dict):
+        return jsonify({'error': 'Invalid input. Expected a JSON object.'}), 400
+    
+    # Create a DataFrame from the input data
     input_data = pd.DataFrame([data])
     
     # Ensure all required features are present
-    for feature in features:
-        if feature not in input_data.columns:
-            return jsonify({'error': f'Missing feature: {feature}'}), 400
+    missing_features = [feature for feature in features if feature not in input_data.columns]
+    if missing_features:
+        return jsonify({'error': f'Missing features: {", ".join(missing_features)}'}), 400
     
     # Select only the required features in the correct order
     input_data = input_data[features]
     
-    prediction = model.predict(input_data)
-    return jsonify({'prediction': prediction.tolist()})
+    try:
+        prediction = model.predict(input_data)
+        return jsonify({'prediction': prediction.tolist()})
+    except Exception as e:
+        return jsonify({'error': f'Prediction error: {str(e)}'}), 500
 
 @app.route('/favicon.ico')
 def favicon():
+    """Return a no content response for favicon requests."""
     return '', 204  # No content response
 
 @app.route('/health', methods=['GET'])
 def health():
+    """Health check endpoint."""
     return jsonify({'status': 'healthy'}), 200
 
 if __name__ == '__main__':
