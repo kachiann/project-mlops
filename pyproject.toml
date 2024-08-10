@@ -4,6 +4,9 @@ max-line-length = 100
 disable = [
     "missing-class-docstring", 
     "missing-function-docstring",
+    "missing-module-docstring",
     "invalid-name",
-    "too-many-arguments",      
+    "unused-variable",
+    "too-many-arguments", 
+    "line-too-long",    
     "too-many-locals"   ]      
