@@ -162,7 +162,7 @@ By following the instructions in the **web_service** folder, you can successfull
 5. ### Best Practices:
    #### To-Do List
 - [x] Reproducibility 
-- [ ] Unit Tests
+- [x] Unit Tests
 - [ ] Integration test
 - [ ] Linter and/or formatter
 - [ ] Makefile
