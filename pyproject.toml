@@ -11,4 +11,6 @@ disable = [
     "line-too-long",    
     "too-many-locals",
     "broad-exception-raised",
-    "broad-exception-caught"   ]      
+    "broad-exception-caught" ,
+    "missing-timeout" ,
+    "inconsistent-return-statements" ]      

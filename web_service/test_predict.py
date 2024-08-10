@@ -1,5 +1,3 @@
-import json
-
 import requests
 
 url = "http://localhost:8080/predict"
