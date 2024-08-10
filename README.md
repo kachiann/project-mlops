@@ -164,7 +164,10 @@ By following the instructions in the **web_service** folder, you can successfull
 - [x] Reproducibility 
 - [x] Unit Tests
 ![Alt text](images/unit_test.png)
-- [ ] Integration test
+- [x] Integration test
+
+See [**tests**](https://github.com/kachiann/project-mlops/tree/main/tests) folder.
+      
 - [x] Linter and/or formatter
 ![Alt text](images/pylint_final.png)
 
