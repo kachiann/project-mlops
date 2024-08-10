@@ -1,3 +1,7 @@
+"""
+Integration test for Docker prediction API.
+"""
+
 import json
 
 import requests
