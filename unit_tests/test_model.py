@@ -1,8 +1,22 @@
+"""
+test_model.py
+This module contains tests for the ModelService class.
+"""
+
 from pathlib import Path
 import model
 
 
 def read_text(file):
+    """
+    Reads the content of a text file.
+
+    Args:
+        file: The name of the file to read.
+
+    Returns:
+        The content of the file as a string.
+    """
     test_directory = Path(__file__).parent
 
     with open(test_directory / file, 'rt', encoding='utf-8') as f_in:
@@ -10,6 +24,9 @@ def read_text(file):
 
 
 def test_base64_decode():
+    """
+    Tests the base64_decode method of the ModelService class.
+    """
     base64_input = read_text('bike_data.b64')
 
     actual_result = model.ModelService(None).base64_decode(base64_input)
@@ -34,6 +51,9 @@ def test_base64_decode():
 
 
 def test_prepare_features():
+    """
+    Tests the prepare_features method of the ModelService class.
+    """
     model_service = model.ModelService(None)
 
     ride = {
@@ -70,15 +90,30 @@ def test_prepare_features():
 
 
 class ModelMock:
+    """
+    A mock model for testing predictions.
+    """
     def __init__(self, value):
         self.value = value
 
-    def predict(self, X):
-        n = len(X)
+    def predict(self, features):
+        """
+        Predicts a constant value based on input features.
+
+        Args:
+            features: The input features.
+
+        Returns:
+            A list of predicted values.
+        """
+        n = len(features)
         return [self.value] * n
 
 
 def test_predict():
+    """
+    Tests the predict method of the ModelService class.
+    """
     model_mock = ModelMock(100.0)
     model_service = model.ModelService(model_mock)
 
@@ -103,6 +138,9 @@ def test_predict():
 
 
 def test_lambda_handler():
+    """
+    Tests the lambda_handler method of the ModelService class.
+    """
     model_mock = ModelMock(100.0)
     model_version = 'Test123'
     model_service = model.ModelService(model_mock, model_version)
