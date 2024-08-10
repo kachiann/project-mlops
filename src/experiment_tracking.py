@@ -50,11 +50,15 @@ def train_and_log_model(model, model_name, x_train, x_test, y_train, y_test, dat
         # Log the full dataset as an artifact
         mlflow.log_artifact(dataset_path, artifact_path="data")
 
-        # Log the training dataset
-        mlflow.log_input(x_train, context="training")
+        # Save and log the training dataset as a CSV file
+        train_csv_path = os.path.join(models_dir, f"{model_name}_x_train.csv")
+        x_train.to_csv(train_csv_path, index=False)
+        mlflow.log_artifact(train_csv_path, artifact_path="data")
 
-        # Log the test dataset
-        mlflow.log_input(x_test, context="test")
+        # Save and log the test dataset as a CSV file
+        test_csv_path = os.path.join(models_dir, f"{model_name}_x_test.csv")
+        x_test.to_csv(test_csv_path, index=False)
+        mlflow.log_artifact(test_csv_path, artifact_path="data")
 
         # Train model
         model.fit(x_train, y_train)
@@ -91,7 +95,7 @@ def train_and_log_model(model, model_name, x_train, x_test, y_train, y_test, dat
 def main():
     """Main function to load data, train models, and log to MLflow."""
     # Path to the dataset
-    dataset_path = os.path.abspath('../project-mlops/data/hour.csv')
+    dataset_path = os.path.abspath('../data/hour.csv')
 
     # Check if the dataset file exists
     if not os.path.exists(dataset_path):
@@ -110,8 +114,17 @@ def main():
     # Log the datasets in a separate run
     with mlflow.start_run(run_name="Dataset Logging"):
         mlflow.log_artifact(dataset_path, artifact_path="data")
-        mlflow.log_input(x_train, context="training")
-        mlflow.log_input(x_test, context="test")
+
+        # Save and log training dataset
+        train_csv_path = os.path.join(models_dir, "x_train.csv")
+        x_train.to_csv(train_csv_path, index=False)
+        mlflow.log_artifact(train_csv_path, artifact_path="data")
+
+        # Save and log test dataset
+        test_csv_path = os.path.join(models_dir, "x_test.csv")
+        x_test.to_csv(test_csv_path, index=False)
+        mlflow.log_artifact(test_csv_path, artifact_path="data")
+
         print(f"Full dataset logged: {dataset_path}")
         print("Training and test datasets logged")
 
@@ -150,3 +163,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
