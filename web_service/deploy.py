@@ -12,6 +12,7 @@ import mlflow
 import pandas as pd
 import requests
 from flask import Flask, jsonify, request
+
 from src.constants import FEATURES
 
 
