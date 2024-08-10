@@ -4,7 +4,7 @@
 
 The `test_docker.py` file contains integration test for the Dockerized model prediction API. Below are instructions on how to run the tests and understand the setup.
 
-Before running the tests, ensure you have met the following requirements:
+Before running the test, ensure you have met the following requirements:
 
 - **Python**: Make sure Python is installed (version 3.11 or higher).
 - **Pipenv**: Ensure Pipenv is installed for managing dependencies. Install it with:
@@ -13,7 +13,6 @@ Before running the tests, ensure you have met the following requirements:
   ```
 - **DeepDiff**: The DeepDiff library is required for comparing JSON responses. This should be included in the `Pipfile`.
 
-the `Pipfile`.
 
 ## Setting Up the Environment
 
