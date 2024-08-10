@@ -34,7 +34,10 @@ def test_base64_decode():
 
     actual_result = model.ModelService(None).base64_decode(base64_input)
 
-    expected_result = BIKE_DATA_TEMPLATE
+    # The expected result should not include 'ride_id'
+    expected_result = {
+        "ride": BIKE_DATA_TEMPLATE,  # Ensure this matches the output structure
+    }
 
     assert actual_result == expected_result
 

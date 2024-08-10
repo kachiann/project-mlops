@@ -23,19 +23,14 @@ class ModelService:
         self.model = model
         self.version = version
 
-    def base64_decode(self, encoded_data):
-        """
-        Decodes base64 encoded data and converts it to a JSON object.
+    def base64_decode(self, base64_input):
+        decoded_bytes = base64.b64decode(base64_input)
+        ride_data = json.loads(decoded_bytes)
 
-        Args:
-            encoded_data: The base64 encoded data.
+        # Remove the 'ride_id' key if it exists
+        ride_data.pop("ride_id", None)
 
-        Returns:
-            A JSON object parsed from the decoded string.
-        """
-        decoded_bytes = base64.b64decode(encoded_data)
-        decoded_str = decoded_bytes.decode("utf-8")
-        return json.loads(decoded_str)
+        return {"ride": ride_data}
 
     def prepare_features(self, ride):
         """
