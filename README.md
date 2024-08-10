@@ -165,6 +165,7 @@ By following the instructions in the **web_service** folder, you can successfull
 - [x] Unit Tests
 - [ ] Integration test
 - [x] Linter and/or formatter
+      ![Alt text](images/pylint_final.png)
 - [ ] Makefile
 - [ ] pre-commit hooks
 - [ ] CI/CD pipeline
