@@ -4,9 +4,8 @@ This module contains tests for the ModelService class.
 """
 
 from pathlib import Path
-
-from tests import model
-from tests.utils import BIKE_DATA_TEMPLATE
+import model
+from utils import BIKE_DATA_TEMPLATE
 
 # Consider using a constant for file paths if reused
 TEST_DIRECTORY = Path(__file__).parent

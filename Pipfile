@@ -4,16 +4,18 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-deepdiff = "*"
-pytest = "*"
-requests = "*"
 mlflow = "*"
 pandas = "*"
+scikit-learn = "*"
+prefect = "*"
+gunicorn = "*"
 flask = "*"
+requests = "*"
+evidently = "*"
+deepdiff = "*"
+pytest = "*"
 
 [dev-packages]
-pylint = "*"
 
 [requires]
 python_version = "3.11"
-/Users/kachiemenike/My Documents/project-mlops/monitoring

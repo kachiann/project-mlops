@@ -1,7 +1,7 @@
 import base64
 import json
 
-from tests.utils import BIKE_DATA_TEMPLATE
+from utils import BIKE_DATA_TEMPLATE
 
 # Convert the data to a JSON string
 json_str = json.dumps(BIKE_DATA_TEMPLATE)

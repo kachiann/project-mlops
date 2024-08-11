@@ -1,11 +1,6 @@
-"""
-Integration test for Docker prediction API.
-"""
-
 import json
 import sys
 import time
-
 import requests
 from deepdiff import DeepDiff
 
@@ -19,14 +14,12 @@ def load_event_data(file_path):
     """
     try:
         with open(file_path, "rt", encoding="utf-8") as f_in:
-            event = json.load(f_in)
-        print("Loaded event data successfully.")
-        return event
+            return json.load(f_in)
     except FileNotFoundError:
-        print("Error: event.json file not found.")
+        print(f"Error: {file_path} file not found.")
         sys.exit(1)
     except json.JSONDecodeError:
-        print("Error: event.json file is not valid JSON.")
+        print("Error: The file content is not valid JSON.")
         sys.exit(1)
 
 
@@ -44,7 +37,6 @@ def send_post_request(url, event, retries=3, delay=2):
         try:
             response = requests.post(url, json=event, timeout=10)
             response.raise_for_status()
-            print("Request successful.")
             return response.json()
         except requests.exceptions.RequestException as request_error:
             print(f"Error while sending request: {request_error}")
@@ -61,7 +53,7 @@ def test_prediction():
     Tests the prediction API endpoint.
     """
     # Load event data from the JSON file
-    event = load_event_data("tests/integration-test/event.json")
+    event = load_event_data("../tests/integration-test/event.json")
 
     # Define the API endpoint URL
     url = "http://localhost:8080/predict"
@@ -78,13 +70,13 @@ def test_prediction():
 
     # Compare actual and expected responses
     diff = DeepDiff(actual_response, expected_response, significant_digits=1)
-    print(f"diff={diff}")
+    print(f"Diff={diff}")
 
     # Assert that there are no differences in the expected values
     if "type_changes" in diff or "values_changed" in diff:
         print("Differences found between actual and expected responses:")
         print(diff)
-        assert False  # Mark the test as failed
+        assert False, "Test failed due to differences between actual and expected responses"
     else:
         print("The actual response matches the expected response.")
 
