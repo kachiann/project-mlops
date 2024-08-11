@@ -21,21 +21,18 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install -r requirements.txt
           pip install pipenv
           pipenv install --dev
 
       - name: Run Unit tests
         run: pipenv run pytest
-        working-directory: ./tests/unit-test  # Adjust if necessary
-
-      - name: List directory contents for debugging
-        run: ls -R
-        working-directory: ./tests/unit-test  # Ensure this is the correct directory
+        working-directory: tests/unit-test
 
       - name: Lint
         run: pipenv run pylint --recursive=y src
-        working-directory: .  # Assuming 'src' is in the root directory
+        working-directory: src
 
       - name: Integration Test
-        run: pipenv run pytest
-        working-directory: ./tests/integration-test  # Adjust if necessary
+        run: pipenv run pytest tests/integration-test
+        working-directory: tests/integration-test
