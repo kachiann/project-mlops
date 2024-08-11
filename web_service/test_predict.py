@@ -1,6 +1,6 @@
 import requests
 
-from tests.utils import BIKE_DATA_TEMPLATE
+from utils import BIKE_DATA_TEMPLATE
 
 url = "http://localhost:8080/predict"
 

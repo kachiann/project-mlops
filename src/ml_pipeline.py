@@ -8,7 +8,7 @@ from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 
-from src.constants import FEATURES
+from constants import FEATURES
 
 
 @task

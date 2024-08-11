@@ -12,8 +12,7 @@ import mlflow
 import pandas as pd
 import requests
 from flask import Flask, jsonify, request
-
-from src.constants import FEATURES
+from constants import FEATURES
 
 
 def wait_for_mlflow_server(url, max_retries=30, delay=10):

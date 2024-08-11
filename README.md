@@ -187,3 +187,7 @@ Added docstrings, improved variable naming, and addressed Pylint issues
 
 - [ ] pre-commit hooks
 - [ ] CI/CD pipeline
+
+6. ### Services
+- MLFlow - http://127.0.0.1:5000
+- Flask app - http://127.0.0.1:8080
