@@ -6,3 +6,4 @@ gunicorn
 flask
 requests
 evidently
+deepdiff
