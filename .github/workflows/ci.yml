@@ -7,44 +7,32 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: macos-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.11'
+          python-version: '3.9'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pipenv
+          pipenv install --dev
 
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
-        with:
-          version: latest
+      - name: Run Unit tests
+        run: pipenv run pytest tests/
+        working-directory: tests
 
-      - name: Build and start Docker container
-        run: |
-          docker-compose up -d  # Adjust this based on your Docker setup
-          # Add a delay if needed to allow the container to fully start
-          sleep 10
+      - name: Lint
+        run: pipenv run pylint --recursive=y src
+        working-directory: src
 
-      - name: Run pytest
-        run: |
-          pytest tests
-
-      - name: Format with Black
-        run: |
-          pip install black
-          black --check project-mlops
-
-      - name: Lint with pylint
-        run: |
-          pip install pylint
-          pylint src
+      - name: Integration Test
+        run: pipenv run pytest tests/integration-test
+        working-directory: tests/integration-test
