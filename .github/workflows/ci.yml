@@ -34,7 +34,9 @@ jobs:
         working-directory: ./tests/unit-test  # Ensure this is the correct directory
 
       - name: Lint
-        run: pipenv run pylint --recursive=y src
+        run: 
+        pipenv install pylint --dev
+        pipenv run pylint --recursive=y src
         working-directory: .  # Assuming 'src' is in the root directory
 
       - name: Integration Test
