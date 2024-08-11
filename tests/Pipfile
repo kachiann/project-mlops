@@ -16,4 +16,3 @@ pylint = "*"
 
 [requires]
 python_version = "3.11"
-/Users/kachiemenike/My Documents/project-mlops/monitoring
