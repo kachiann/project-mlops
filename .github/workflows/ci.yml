@@ -26,8 +26,8 @@ jobs:
           pipenv install --dev
 
       - name: Run Unit tests
-        run: pipenv run pytest tests/test_model.py
-        working-directory: tests
+        working-directory: "tests"
+        run: pipenv run pytest
 
       - name: Lint
         run: pipenv run pylint --recursive=y src
