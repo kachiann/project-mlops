@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 import time
 import requests
@@ -13,13 +14,13 @@ def load_event_data(file_path):
     :return: The event data as a dictionary.
     """
     try:
-        with open(file_path, "rt", encoding="utf-8") as f_in:
+        # Use os.path.join to build the file path relative to the current script
+        base_path = os.path.dirname(__file__)
+        full_path = os.path.join(base_path, file_path)
+        with open(full_path, "rt", encoding="utf-8") as f_in:
             return json.load(f_in)
     except FileNotFoundError:
-        print(f"Error: {file_path} file not found.")
-        sys.exit(1)
-    except json.JSONDecodeError:
-        print("Error: The file content is not valid JSON.")
+        print(f"Error: {full_path} file not found.")
         sys.exit(1)
 
 
@@ -52,8 +53,8 @@ def test_prediction():
     """
     Tests the prediction API endpoint.
     """
-    # Load event data from the JSON file
-    event = load_event_data("../tests/integration-test/event.json")
+    # Use a relative path from the test file location
+    event = load_event_data("event.json")
 
     # Define the API endpoint URL
     url = "http://localhost:8080/predict"
