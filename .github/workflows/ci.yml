@@ -24,6 +24,7 @@ jobs:
           pip install -r requirements.txt
           pip install pipenv
           pipenv install --dev
+          pipenv run pip install pylint
 
       - name: Run Unit tests
         run: pipenv run pytest
