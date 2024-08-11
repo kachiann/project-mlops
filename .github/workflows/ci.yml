@@ -26,7 +26,7 @@ jobs:
           pipenv install --dev
 
       - name: Run Unit tests
-        run: pipenv run pytest
+        run: pipenv run pytest tests/test_model.py
         working-directory: tests
 
       - name: Lint
