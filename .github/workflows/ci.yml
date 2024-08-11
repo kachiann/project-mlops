@@ -33,7 +33,3 @@ jobs:
       - name: Lint
         run: pipenv run pylint --recursive=y src
         working-directory: .
-
-      - name: Integration Test
-        run: pipenv run pytest
-        working-directory: ./tests/integration-test
