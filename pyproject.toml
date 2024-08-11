@@ -13,4 +13,5 @@ disable = [
     "broad-exception-raised",
     "broad-exception-caught" ,
     "missing-timeout" ,
-    "inconsistent-return-statements" ]      
+    "inconsistent-return-statements",
+    "import-error" ]      
