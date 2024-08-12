@@ -4,6 +4,8 @@ import mlflow
 import pandas as pd
 import requests
 from flask import Flask, jsonify, request
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 from constants import FEATURES
 
 def wait_for_mlflow_server(url, max_retries=30, delay=10):
