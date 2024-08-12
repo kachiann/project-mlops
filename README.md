@@ -172,10 +172,6 @@ In the Deployment section in the Prefect UI, you can view the current Deployment
 
 ---
 
-Sure! Here’s the updated section for **3. Model Deployment**, instructing users to refer to the web service for usage instructions:
-
----
-
 ### 3. Model Deployment:
 
 To deploy the trained machine learning models as a web service, we utilize Flask along with MLflow. The deployment script, `deploy.py`, is responsible for loading the model and serving predictions through a RESTful API.
