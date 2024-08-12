@@ -279,7 +279,9 @@ By following the instructions in the **web_service** folder, you can successfull
 5. ### Best Practices:
    #### To-Do List
 - [x] Reproducibility
-      The versions for all dependencies are specified.
+      
+The versions for all dependencies are specified.
+      
 - [x] Unit Tests
 ![Alt text](images/unit_test.png)
 - [x] Integration test
@@ -304,7 +306,7 @@ Added docstrings, improved variable naming, and addressed Pylint issues
 ![Alt text](images/makefile.png)
 
 - [ ] pre-commit hooks
-- [ ] CI/CD pipeline
+- [x] CI/CD pipeline
 
 6. ### Services
 - MLFlow - [http://127.0.0.1:5000](http://127.0.0.1:5000)
