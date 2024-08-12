@@ -5,9 +5,8 @@ import mlflow
 import pandas as pd
 import requests
 from flask import Flask, jsonify, request
-from constants import FEATURES
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
-
+from constants import FEATURES  # Ensure this file exists and defines FEATURES
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def wait_for_mlflow_server(url, max_retries=30, delay=10):
     """Wait until the MLflow server is available."""
@@ -37,12 +36,15 @@ if not wait_for_mlflow_server(mlflow_uri):
 try:
     # Load the model from MLflow
     model_name = "DecisionTreeRegressor_registered"
-    version = 9
-    model_uri = f"models:/{model_name}/{version}"
+    
+    # Get the latest model version
+    client = mlflow.tracking.MlflowClient()
+    latest_version = client.get_latest_versions(model_name, stages=["Production"])[0].version
+    model_uri = f"models:/{model_name}/{latest_version}"
 
     # Load the model
     model = mlflow.sklearn.load_model(model_uri)
-    print(f"Successfully loaded model {model_name} version {version}")
+    print(f"Successfully loaded model {model_name} version {latest_version}")
 
 except mlflow.exceptions.MlflowException as e:
     print(f"Error loading model: {e}")
@@ -76,6 +78,11 @@ def predict():
     # Select only the required features in the correct order
     input_data = input_data[FEATURES]
 
+    # Validate data types for each feature
+    for feature in FEATURES:
+        if not pd.api.types.is_numeric_dtype(input_data[feature]):
+            return jsonify({"error": f"Feature '{feature}' must be numeric."}), 400
+
     try:
         prediction = model.predict(input_data)
         return jsonify({"prediction": prediction.tolist()})
@@ -90,7 +97,8 @@ def favicon():
 @app.route("/health", methods=["GET"])
 def health():
     """Health check endpoint."""
-    return jsonify({"status": "healthy"}), 200
+    model_status = "loaded" if 'model' in locals() else "not loaded"
+    return jsonify({"status": "healthy", "model_status": model_status}), 200
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
