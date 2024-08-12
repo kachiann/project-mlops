@@ -124,12 +124,16 @@ Ensure that you are still in the activated virtual environment when running the 
 
 A Prefect Task is a Python function decorated with the `@task` decorator that represents discrete units of work within a Prefect workflow. `ml_pipeline.py` represents a machine learning pipeline that integrates MLflow for experiment tracking and Prefect for workflow management.
 
-We can also customize the task decorator with optional arguments like name, description, tags, cache settings, retries, and more.
+**Task Customization:** You can customize the task decorator with optional arguments like `name`, `description`, `tags`, `cache settings`, `retries`, and more.
 
-The `ml_pipeline()` function, decorated with @flow, orchestrates the entire workflow:
-- Sets up MLflow tracking URI and experiment name
-- Executes each task in sequence
-- Passes data between tasks
+**Prefect Flow**
+
+The `ml_pipeline()` function, decorated with `@flow`, orchestrates the entire workflow:
+
+- **Sets up MLflow tracking URI and experiment name**
+- **Executes each task in sequence**
+- **Passes data between tasks**
+
 
 **Prefect Deployments**
 
@@ -141,33 +145,82 @@ Deployments are flows stored on the local server or on the cloud and include imp
 - Logging and observability
 - Notifications
 - Automated workflows requiring no human intervention
-  
-**Usage**: To test the Prefect Flow, run the Python file in the terminal.
+
+### Usage Instructions
+
+**Note:** Ensure that you are operating within the activated virtual environment (`venv`) throughout this process. If you haven’t activated your virtual environment yet, do so with the following command:
+
+```bash
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+
+#### 1. Log in to Prefect Cloud
+
+Before running the `ml_pipeline.py` file, log in to Prefect Cloud using the following command:
+
+```bash
+prefect cloud login
+```
+
+Follow the prompts to enter your Prefect Cloud API key and complete the login process.
+
+#### 2. Install Dependencies
+
+Ensure all necessary dependencies are installed by running:
+
 ```bash
 pip install -r requirements.txt
 ```
 
+#### 3. Test the Prefect Flow
+
+Run the Python file in the terminal to test the Prefect Flow:
+
 ```bash
 python src/ml_pipeline.py
 ```
-To run the deployment locally, we must build the “Deployment” by providing the file and flow function names.
+
+#### 4. Build and Deploy the Prefect Deployment Locally
+
+To run the deployment locally, build the "Deployment" by providing the file and flow function names:
+
 ```bash
 prefect deployment build src/ml_pipeline.py:ml_pipeline -n 'ml_pipeline_bike_sharing_analysis' -a --tag dev
 ```
-We will initialize the Prefect agents in a new terminal with the default work pool name.
+
+#### 5. Start Prefect Agents
+
+Initialize the Prefect agents in a new terminal with the default work pool name:
+
 ```bash
 prefect agent start -p 'default-agent-pool'
 ```
-Go to a new terminal and run the deployment
+
+#### 6. Run the Deployment
+
+In a new terminal, execute the deployment:
+
 ```bash
 prefect deployment run 'ml-pipeline/ml_pipeline_bike_sharing_analysis'
 ```
 
-To run using **Prefect UI**
-```bash
-prefect server start
-```
-In the Deployment section in the Prefect UI, you can view the current Deployment along with its activity and tags. See below.
+#### 7. Use the Prefect UI
+
+To run and monitor your workflows using the Prefect UI:
+
+1. Start the Prefect server:
+
+   ```bash
+   prefect server start
+   ```
+
+2. Access the Prefect Dashboard by navigating to the following URL in your web browser:
+
+   [http://127.0.0.1:4200](http://127.0.0.1:4200)
+
+3. In the Deployment section of the Prefect UI, you can view the current Deployment along with its activity and tags.
+
+
 ![Alt text](images/prefect.png)
 
 ---
@@ -251,5 +304,6 @@ Added docstrings, improved variable naming, and addressed Pylint issues
 - [ ] CI/CD pipeline
 
 6. ### Services
-- MLFlow - http://127.0.0.1:5000
-- Flask app - http://127.0.0.1:8080
+- MLFlow - [http://127.0.0.1:5000](http://127.0.0.1:5000)
+- Flask app - [http://127.0.0.1:8080](http://127.0.0.1:8080)
+- Prefect - Dashboard: http://127.0.0.1:4200](http://127.0.0.1:4200)
