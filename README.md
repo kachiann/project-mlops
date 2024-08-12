@@ -28,24 +28,81 @@ This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web
     - Defines the [Kubernetes](https://kubernetes.io/) deployment and service for the project.
 
 ---
+## Quick Start
+
+To get started with this project, follow these steps in your terminal:
+
+1. **Clone the Repository:**
+
+   Begin by cloning the project repository from GitHub:
+
+   ```bash
+   git clone https://github.com/kachiann/project-mlops.git
+   ```
+
+2. **Navigate to the Project Directory:**
+
+   Change your directory to the newly cloned project folder:
+
+   ```bash
+   cd project-mlops
+   ```
+
+3. **Set Up the Environment:**
+
+   Ensure you have a Python environment set up. You can create a virtual environment using:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+
+4. **Install Dependencies:**
+
+   Install the necessary Python packages:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+5. **Run Implementation Files**:
+   
+Ensure that you are still in the activated virtual environment when running the files. This ensures that all dependencies are correctly referenced.
+
 
 ## Implementation Details
 
 ### 1. Experiment Tracking and Model Registry:
-- Used **[MLflow](https://mlflow.org/)** for tracking experiments, metrics, and artifacts with a remote server.
-- Developed Linear Regression and Decision Tree Regressor using scikit-learn on the bike-sharing dataset.
-- Created a function to train models, log parameters, metrics (MAE, R2), and save models as artifacts and pickle files.
-```bash
-mlflow server --backend-store-uri sqlite:///backend.db
-```
-```bash
-python src/experiment_tracking.py
-```
-- Compared model performance and registered models in the MLflow Model Registry.
-- Implemented functionality to load models from pickle files.
-```bash
-python src/model_registry.py
-```
+
+- **Experiment Tracking with MLflow:**
+
+  Use **[MLflow](https://mlflow.org/)** to track experiments, metrics, and artifacts. Start the MLflow server with a remote backend:
+
+  ```bash
+  mlflow server --backend-store-uri sqlite:///backend.db
+  ```
+  Or 
+
+  Start the MLflow server with a remote backend and specify the default artifact root
+
+  ```bash
+  mlflow server --backend-store-uri sqlite:///backend.db --default-artifact-root ./mlruns
+  ```
+- **Model Development:**
+
+  Develop Linear Regression and Decision Tree Regressor models using scikit-learn on the bike-sharing dataset. Use the following command to execute the experiment tracking script:
+
+  ```bash
+  python src/experiment_tracking.py
+  ```
+
+- **Model Comparison and Registration:**
+
+  Compare model performance by examining metrics such as MAE and R2. Register the models in the MLflow Model Registry. To manage the model registry, use:
+
+  ```bash
+  python src/model_registry.py
+  ```
+
 ![Alt text](images/experiment_tracking.png)
 
 ---
