@@ -96,6 +96,8 @@ Ensure that you are still in the activated virtual environment when running the 
 
   This web interface allows you to visualize your experiments, compare model metrics, and manage your model registry.
   
+  **Note**: Ensure that you are operating within the activated virtual environment (venv) throughout this process.
+  
 - **Model Development:**
 
   Develop Linear Regression and Decision Tree Regressor models using scikit-learn on the bike-sharing dataset. Use the following command to execute the experiment tracking script:
