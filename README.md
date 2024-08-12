@@ -18,7 +18,7 @@ This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web
 - The [`models`](https://github.com/kachiann/project-mlops/tree/main/models) folder stores the trained machine learning models and any related artifacts.
 - The [`src`](https://github.com/kachiann/project-mlops/tree/main/src) folder contains the source codes for the project.
 - The [`web_service`](https://github.com/kachiann/project-mlops/tree/main/web_service) folder contains the source codes for the model deployment.
-- The [`monitoring`] folder
+- The [`monitoring`](https://github.com/kachiann/project-mlops/tree/main/monitoring) folder
 
 ## Additional files
 - **requirements.txt**
