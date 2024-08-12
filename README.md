@@ -53,7 +53,7 @@ To get started with this project, follow these steps in your terminal:
    Ensure you have a Python environment set up. You can create a virtual environment using:
 
    ```bash
-   python -m venv venv
+   python3.8 -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 
