@@ -45,4 +45,4 @@ pytest integration-test/test_docker.py
 
 This test helps ensure that your Dockerized API behaves as expected when processing input data. Make adjustments as necessary to the test based on the evolving requirements of your application.
 
-![Alt text](images/reformatted.png)
+![Alt text](reformatted.png)
