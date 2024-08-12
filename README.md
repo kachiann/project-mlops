@@ -343,3 +343,4 @@ Added docstrings, improved variable naming, and addressed Pylint issues
 - MLFlow - [http://127.0.0.1:5000](http://127.0.0.1:5000)
 - Flask app - [http://127.0.0.1:8080](http://127.0.0.1:8080)
 - Prefect - Dashboard: http://127.0.0.1:4200](http://127.0.0.1:4200)
+- Evidently - [http://loacalhost:8000](http://localhost:8000)
