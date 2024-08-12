@@ -279,7 +279,7 @@ By following the instructions in the **web_service** folder, you can successfull
    Start the Evidently monitoring environment using Docker:
 
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 
 3. **Start the MLflow UI:**
