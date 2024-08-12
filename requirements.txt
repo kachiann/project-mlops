@@ -12,7 +12,7 @@ requests==2.32.3
 evidently
 tqdm
 psycopg
-psycong_binary
+psycopg_binary
 pyarrow==15.0.2
 deepdiff
 pytest
