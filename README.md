@@ -26,26 +26,94 @@ This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web
   - Defines the Docker image for the project, specifying the environment and dependencies required to run the code.
 - **deployment.yaml**
     - Defines the [Kubernetes](https://kubernetes.io/) deployment and service for the project.
-
+      
+## Clouds 
+- The project is deployed to Kubernetes and Docker. 
 ---
+## Quick Start
+
+To get started with this project, follow these steps in your terminal:
+
+1. **Clone the Repository:**
+
+   Begin by cloning the project repository from GitHub:
+
+   ```bash
+   git clone https://github.com/kachiann/project-mlops.git
+   ```
+
+2. **Navigate to the Project Directory:**
+
+   Change your directory to the newly cloned project folder:
+
+   ```bash
+   cd project-mlops
+   ```
+
+3. **Set Up the Environment:**
+
+   Ensure you have a Python environment set up. You can create a virtual environment using:
+
+   ```bash
+   python3.8 -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+
+4. **Install Dependencies:**
+
+   Install the necessary Python packages:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+5. **Run Implementation Files**:
+   
+Ensure that you are still in the activated virtual environment when running the files. This ensures that all dependencies are correctly referenced.
+
 
 ## Implementation Details
 
 ### 1. Experiment Tracking and Model Registry:
-- Used **[MLflow](https://mlflow.org/)** for tracking experiments, metrics, and artifacts with a remote server.
-- Developed Linear Regression and Decision Tree Regressor using scikit-learn on the bike-sharing dataset.
-- Created a function to train models, log parameters, metrics (MAE, R2), and save models as artifacts and pickle files.
-```bash
-mlflow server --backend-store-uri sqlite:///backend.db
-```
-```bash
-python src/experiment_tracking.py
-```
-- Compared model performance and registered models in the MLflow Model Registry.
-- Implemented functionality to load models from pickle files.
-```bash
-python src/model_registry.py
-```
+
+- **Experiment Tracking with MLflow:**
+
+  Use **[MLflow](https://mlflow.org/)** to track experiments, metrics, and artifacts. Start the MLflow server with a remote backend:
+
+  ```bash
+  mlflow server --backend-store-uri sqlite:///backend.db
+  ```
+  Or 
+
+  Start the MLflow server with a remote backend and specify the default artifact root
+
+  ```bash
+  mlflow server --backend-store-uri sqlite:///backend.db --default-artifact-root ./mlruns
+  ```
+  Once the server is running, you can access the MLflow UI by navigating to the following URL in your web browser:
+
+  [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+  This web interface allows you to visualize your experiments, compare model metrics, and manage your model registry.
+  
+- **Model Development:**
+
+  Develop Linear Regression and Decision Tree Regressor models using scikit-learn on the bike-sharing dataset. Use the following command to execute the experiment tracking script:
+
+  ```bash
+  python src/experiment_tracking.py
+  ```
+
+- **Model Comparison and Registration:**
+
+  Compare model performance by examining metrics such as MAE and R2. Register the models in the MLflow Model Registry. To manage the model registry, use:
+
+  ```bash
+  python src/model_registry.py
+  ```
+- **Model Loading:**
+
+  Implement functionality to load models from the saved pickle files for further use or deployment.
+
 ![Alt text](images/experiment_tracking.png)
 
 ---
@@ -58,12 +126,16 @@ python src/model_registry.py
 
 A Prefect Task is a Python function decorated with the `@task` decorator that represents discrete units of work within a Prefect workflow. `ml_pipeline.py` represents a machine learning pipeline that integrates MLflow for experiment tracking and Prefect for workflow management.
 
-We can also customize the task decorator with optional arguments like name, description, tags, cache settings, retries, and more.
+**Task Customization:** You can customize the task decorator with optional arguments like `name`, `description`, `tags`, `cache settings`, `retries`, and more.
 
-The `ml_pipeline()` function, decorated with @flow, orchestrates the entire workflow:
-- Sets up MLflow tracking URI and experiment name
-- Executes each task in sequence
-- Passes data between tasks
+**Prefect Flow**
+
+The `ml_pipeline()` function, decorated with `@flow`, orchestrates the entire workflow:
+
+- **Sets up MLflow tracking URI and experiment name**
+- **Executes each task in sequence**
+- **Passes data between tasks**
+
 
 **Prefect Deployments**
 
@@ -75,38 +147,83 @@ Deployments are flows stored on the local server or on the cloud and include imp
 - Logging and observability
 - Notifications
 - Automated workflows requiring no human intervention
-  
-**Usage**: To test the Prefect Flow, run the Python file in the terminal.
+
+### Usage Instructions
+
+**Note:** Ensure that you are operating within the activated virtual environment (`venv`) throughout this process. If you haven’t activated your virtual environment yet, do so with the following command:
+
+```bash
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+
+#### 1. Log in to Prefect Cloud
+
+Before running the `ml_pipeline.py` file, log in to Prefect Cloud using the following command:
+
+```bash
+prefect cloud login
+```
+
+Follow the prompts to enter your Prefect Cloud API key and complete the login process.
+
+#### 2. Install Dependencies
+
+Ensure all necessary dependencies are installed by running:
+
 ```bash
 pip install -r requirements.txt
 ```
 
+#### 3. Test the Prefect Flow
+
+Run the Python file in the terminal to test the Prefect Flow:
+
 ```bash
 python src/ml_pipeline.py
 ```
-To run the deployment locally, we must build the “Deployment” by providing the file and flow function names.
+
+#### 4. Build and Deploy the Prefect Deployment Locally
+
+To run the deployment locally, build the "Deployment" by providing the file and flow function names:
+
 ```bash
 prefect deployment build src/ml_pipeline.py:ml_pipeline -n 'ml_pipeline_bike_sharing_analysis' -a --tag dev
 ```
-We will initialize the Prefect agents in a new terminal with the default work pool name.
+
+#### 5. Start Prefect Agents
+
+Initialize the Prefect agents in a new terminal with the default work pool name:
+
 ```bash
 prefect agent start -p 'default-agent-pool'
 ```
-Go to a new terminal and run the deployment
+
+#### 6. Run the Deployment
+
+In a new terminal, execute the deployment:
+
 ```bash
 prefect deployment run 'ml-pipeline/ml_pipeline_bike_sharing_analysis'
 ```
 
-To run using **Prefect UI**
-```bash
-prefect server start
-```
-In the Deployment section in the Prefect UI, you can view the current Deployment along with its activity and tags. See below.
+#### 7. Use the Prefect UI
+
+To run and monitor your workflows using the Prefect UI:
+
+1. Start the Prefect server:
+
+   ```bash
+   prefect server start
+   ```
+
+2. Access the Prefect Dashboard by navigating to the following URL in your web browser:
+
+   [http://127.0.0.1:4200](http://127.0.0.1:4200)
+
+3. In the Deployment section of the Prefect UI, you can view the current Deployment along with its activity and tags.
+
+
 ![Alt text](images/prefect.png)
-
----
-
-Sure! Here’s the updated section for **3. Model Deployment**, instructing users to refer to the web service for usage instructions:
 
 ---
 
@@ -125,7 +242,7 @@ mlflow server --backend-store-uri sqlite:///backend.db
 
 2. **Run the Deployment Script**: Execute the `deploy.py` file to start the Flask API:
 ```bash
-python deploy.py
+python web_service/deploy.py
 ```
 
 3. **Model Loading and Prediction Logic**: The script automatically loads the latest production version of the registered model from MLflow for making predictions based on incoming requests.
@@ -161,7 +278,10 @@ By following the instructions in the **web_service** folder, you can successfull
 
 5. ### Best Practices:
    #### To-Do List
-- [x] Reproducibility 
+- [x] Reproducibility
+      
+The versions for all dependencies are specified.
+      
 - [x] Unit Tests
 ![Alt text](images/unit_test.png)
 - [x] Integration test
@@ -186,8 +306,9 @@ Added docstrings, improved variable naming, and addressed Pylint issues
 ![Alt text](images/makefile.png)
 
 - [ ] pre-commit hooks
-- [ ] CI/CD pipeline
+- [x] CI/CD pipeline
 
 6. ### Services
-- MLFlow - http://127.0.0.1:5000
-- Flask app - http://127.0.0.1:8080
+- MLFlow - [http://127.0.0.1:5000](http://127.0.0.1:5000)
+- Flask app - [http://127.0.0.1:8080](http://127.0.0.1:8080)
+- Prefect - Dashboard: http://127.0.0.1:4200](http://127.0.0.1:4200)
