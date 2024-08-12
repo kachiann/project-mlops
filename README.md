@@ -17,7 +17,8 @@ This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web
 - The [`notebooks`](https://github.com/kachiann/project-mlops/tree/main/notebook) folder contains Jupyter notebooks used for exploratory data analysis (EDA), and initial model experimentation.
 - The [`models`](https://github.com/kachiann/project-mlops/tree/main/models) folder stores the trained machine learning models and any related artifacts.
 - The [`src`](https://github.com/kachiann/project-mlops/tree/main/src) folder contains the source codes for the project.
-- The [`web_service`](https://github.com/kachiann/project-mlops/tree/main/web_service) folder contains the source codes for the model deployment. 
+- The [`web_service`](https://github.com/kachiann/project-mlops/tree/main/web_service) folder contains the source codes for the model deployment.
+- The [`monitoring`] folder
 
 ## Additional files
 - **requirements.txt**
