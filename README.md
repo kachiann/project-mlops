@@ -26,7 +26,9 @@ This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web
   - Defines the Docker image for the project, specifying the environment and dependencies required to run the code.
 - **deployment.yaml**
     - Defines the [Kubernetes](https://kubernetes.io/) deployment and service for the project.
-
+      
+## Clouds 
+- The project is deployed to Kubernetes and Docker. 
 ---
 ## Quick Start
 
