@@ -55,7 +55,7 @@ To get started with this project, follow these steps in your terminal:
    Ensure you have a Python environment set up. You can create a virtual environment using:
 
    ```bash
-   python3.8 -m venv venv
+   python3.11 -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 
@@ -261,18 +261,48 @@ By following the instructions in the **web_service** folder, you can successfull
 
 ### 4. Model Monitoring:
 
-[**Evidently AI**](https://www.evidentlyai.com/) is an open-source Python library for monitoring ML models during development, validation, and in production. It checks data and model quality, data drift, target drift, and regression and classification performance. We will integrate Evidently AI into the project to enhance data and model monitoring capabilities. In the folder `notebooks` you can find the evidently notebook.
+[**Evidently AI**](https://www.evidentlyai.com/) is an open-source Python library for monitoring ML models during development, validation, and in production. It checks data and model quality, data drift, target drift, and regression and classification performance. We will integrate Evidently AI into the project to enhance our data and model monitoring capabilities. You can find the Evidently notebook in the `notebooks` folder.
 
 **Usage**:
-1. Install Evidently AI library
+
+1. **Navigate to the Monitoring Folder:**
+
+   Change your directory to the `monitoring` folder:
+
    ```bash
-   pip install evidently
+   cd monitoring
    ```
-2. Run the script
+
+2. **Run Docker Compose:**
+
+   Start the Evidently monitoring environment using Docker:
+
    ```bash
-   python src/evidently_model_analysis.py
+   docker-compose up --build
    ```
-3. Open the generated HTML reports
+
+3. **Start the MLflow UI:**
+
+   In a new terminal window, load the MLflow UI to track your experiments:
+
+   ```bash
+   mlflow server --backend-store-uri sqlite:///backend.db
+   ```
+
+4. **View Baseline Model Metrics:**
+
+   To view the baseline model metrics via the Evidently UI, you can run the Jupyter notebook `baseline_model_evidently.ipynb` located in the `notebooks` folder. Make sure to open the relevant notebook and execute the cells to generate the necessary visualizations.
+
+5. **Run the Evidently UI:**
+
+   Execute the following command in the terminal to start the Evidently UI:
+
+   ```bash
+   evidently ui
+   ```
+
+This setup allows you to monitor your machine learning models effectively, providing insights into data quality, model performance, and any potential drifts in your data. By integrating Evidently AI, you can ensure that your models remain robust and reliable in production.
+
 ![Alt text](images/Evidently.png)
 ---
 
