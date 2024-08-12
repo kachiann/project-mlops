@@ -102,6 +102,9 @@ Ensure that you are still in the activated virtual environment when running the 
   ```bash
   python src/model_registry.py
   ```
+- **Model Loading:**
+
+  Implement functionality to load models from the saved pickle files for further use or deployment.
 
 ![Alt text](images/experiment_tracking.png)
 
