@@ -87,6 +87,12 @@ Ensure that you are still in the activated virtual environment when running the 
   ```bash
   mlflow server --backend-store-uri sqlite:///backend.db --default-artifact-root ./mlruns
   ```
+  Once the server is running, you can access the MLflow UI by navigating to the following URL in your web browser:
+
+  [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+  This web interface allows you to visualize your experiments, compare model metrics, and manage your model registry.
+  
 - **Model Development:**
 
   Develop Linear Regression and Decision Tree Regressor models using scikit-learn on the bike-sharing dataset. Use the following command to execute the experiment tracking script:
