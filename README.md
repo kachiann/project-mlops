@@ -240,7 +240,7 @@ mlflow server --backend-store-uri sqlite:///backend.db
 
 2. **Run the Deployment Script**: Execute the `deploy.py` file to start the Flask API:
 ```bash
-python deploy.py
+python web_service/deploy.py
 ```
 
 3. **Model Loading and Prediction Logic**: The script automatically loads the latest production version of the registered model from MLflow for making predictions based on incoming requests.
