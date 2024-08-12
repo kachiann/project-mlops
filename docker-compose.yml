@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"  # Change host port from 8080 to 8081
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    depends_on:
+      - mlflow
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.0.1
+    command: mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0
+    ports:
+      - "6000:5000"  # Ensure the MLflow port doesn't conflict as well
+    volumes:
+      - ./mlflow:/mlflow
