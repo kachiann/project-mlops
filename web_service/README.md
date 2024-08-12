@@ -37,12 +37,12 @@ Once the image is built, you can run it with:
 docker run -p 8080:8080 bike-sharing
 ```
 
-#### 2. Start Flask Application:
+#### 2. Send a Prediction Request:
 
-In a different terminal, you can start your Flask app by running:
+Use the `test_predict.py` script to send a POST request. Run the script:
 
 ```bash
-python web_service/deploy.py
+python web_service/test_predict.py
 ```
 
 #### 3. Test the /predict Endpoint:
