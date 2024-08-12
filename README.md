@@ -278,7 +278,8 @@ By following the instructions in the **web_service** folder, you can successfull
 
 5. ### Best Practices:
    #### To-Do List
-- [x] Reproducibility 
+- [x] Reproducibility
+      The versions for all dependencies are specified.
 - [x] Unit Tests
 ![Alt text](images/unit_test.png)
 - [x] Integration test
