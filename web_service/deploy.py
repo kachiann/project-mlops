@@ -1,10 +1,11 @@
 import os
 import sys
 import time
-import mlflow
-import pandas as pd
 import requests
+import pandas as pd
 from flask import Flask, jsonify, request
+import mlflow
+
 from constants import FEATURES  # Ensure this file exists and defines FEATURES
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -16,8 +17,8 @@ def wait_for_mlflow_server(url, max_retries=30, delay=10):
             if response.status_code == 200:
                 print("MLflow server is up and running!")
                 return True
-        except requests.exceptions.RequestException as e:
-            print(f"Attempt {attempt + 1}/{max_retries}: MLflow server not ready. Error: {e}")
+        except requests.exceptions.RequestException as re:
+            print(f"Attempt {attempt + 1}/{max_retries}: MLflow server not ready. Error: {re}")
             if attempt < max_retries - 1:
                 print(f"Retrying in {delay} seconds...")
                 time.sleep(delay)
@@ -36,7 +37,6 @@ if not wait_for_mlflow_server(mlflow_uri):
 try:
     # Load the model from MLflow
     model_name = "DecisionTreeRegressor_registered"
-    
     # Get the latest model version
     client = mlflow.tracking.MlflowClient()
     latest_version = client.get_latest_versions(model_name, stages=["Production"])[0].version
@@ -56,12 +56,13 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     """Return a welcome message."""
-    return "Welcome to the ML Prediction API. Use the /predict endpoint to make predictions."
+    return "Welcome to the ML Prediction API!"
 
+# Define a route for predictions
 @app.route("/predict", methods=["POST"])
 def predict():
     """Handle prediction requests."""
-    data = request.json
+    data = request.json # Expecting JSON input
 
     # Check if input data is present and is a dictionary
     if not data or not isinstance(data, dict):
@@ -86,8 +87,8 @@ def predict():
     try:
         prediction = model.predict(input_data)
         return jsonify({"prediction": prediction.tolist()})
-    except Exception as e:
-        return jsonify({"error": f"Prediction error: {str(e)}"}), 500
+    except Exception as exception:
+        return jsonify({"error": f"Prediction error: {str(exception)}"}), 500
 
 @app.route("/favicon.ico")
 def favicon():
