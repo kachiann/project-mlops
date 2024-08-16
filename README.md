@@ -92,7 +92,7 @@ Ensure that you are still in the activated virtual environment when running the 
   ```
   Once the server is running, you can access the MLflow UI by navigating to the following URL in your web browser:
 
-  [http://127.0.0.1:5000](http://127.0.0.1:5000)
+  [http://localhost:5000](http://localhost:5000)
 
   This web interface allows you to visualize your experiments, compare model metrics, and manage your model registry.
   
@@ -221,7 +221,7 @@ To run and monitor your workflows using the Prefect UI:
 
 2. Access the Prefect Dashboard by navigating to the following URL in your web browser:
 
-   [http://127.0.0.1:4200](http://127.0.0.1:4200)
+   [http://localhost:4200](http://localhost:4200)
 
 3. In the Deployment section of the Prefect UI, you can view the current Deployment along with its activity and tags.
 
@@ -247,6 +247,9 @@ mlflow server --backend-store-uri sqlite:///backend.db
 ```bash
 python web_service/deploy.py
 ```
+  By default, Flask will start the app at http://127.0.0.1:8080.
+  
+  Open a web browser or use an HTTP client to access http://127.0.0.1:8080/. You should see the message: "Welcome to the ML Prediction API!".
 
 3. **Model Loading and Prediction Logic**: The script automatically loads the latest production version of the registered model from MLflow for making predictions based on incoming requests.
 
@@ -254,7 +257,7 @@ python web_service/deploy.py
 
 5. **Containerization**: To deploy the application in a Docker container, a `Dockerfile`.
 
-6. **Testing the API**: Instructions for testing the deployed API are available in the `web_service` folder.
+6. **Testing the API**: Instructions for testing the deployed API are available in the `web_service` folder. You can test the API endpoint using curl, Postman, or any other HTTP client. 
 
 7. **Kubernetes Deployment**: If intrested in deploying the Flask application on Kubernetes, a `deployment.yaml` file is provided in the `web_service` folder.
 
