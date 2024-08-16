@@ -20,23 +20,29 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies from requirements.txt
-        if: exists('requirements.txt')
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+          fi
 
       - name: Install pipenv and dependencies
-        if: exists('Pipfile')
         run: |
           python -m pip install --upgrade pip pipenv
-          pipenv install --dev --skip-lock
+          if [ -f Pipfile ]; then
+            pipenv install --dev --skip-lock
+          fi
 
       - name: Run Unit tests
-        run: pipenv run pytest
+        run: |
+          if [ -f Pipfile ]; then
+            pipenv run pytest
+          fi
         working-directory: tests/unit-test
-        if: exists('Pipfile')
 
       - name: Lint
-        run: pipenv run pylint --recursive=y src
+        run: |
+          if [ -f Pipfile ]; then
+            pipenv run pylint --recursive=y src
+          fi
         working-directory: .
-        if: exists('Pipfile')
