@@ -16,10 +16,15 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
+    - name: Install dependencies from requirements.txt
+      if: file_exists('requirements.txt')
       run: |
         python -m pip install --upgrade pip
-        pip install pipenv
+        pip install -r requirements.txt
+
+    - name: Install pipenv and dependencies
+      run: |
+        python -m pip install --upgrade pip pipenv
         pipenv install --dev
 
     - name: Analyzing the code with pylint
