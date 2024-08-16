@@ -1,3 +1,4 @@
+
 import datetime
 import time
 import random
@@ -55,7 +56,7 @@ def prep_db():
             with psycopg.connect("host=localhost port=5432 dbname=test user=postgres password=example") as conn:
                 conn.execute(create_table_statement)
     except Exception as e:
-        logging.error(f"Error preparing the database: {e}")
+        logging.error("Error preparing the database: %s", {e})
 
 @task
 def calculate_metrics_postgresql(curr):
@@ -77,7 +78,7 @@ def calculate_metrics_postgresql(curr):
             (datetime.datetime.now(), prediction_drift, num_drifted_columns, share_missing_values)
         )
     except Exception as e:
-        logging.error(f"Error calculating metrics: {e}")
+        logging.error("Error calculating metrics: %s", {e})
 
 @flow
 def batch_monitoring_backfill():
@@ -96,7 +97,7 @@ def batch_monitoring_backfill():
                 last_send += datetime.timedelta(seconds=10)
                 logging.info("Data sent")
     except Exception as e:
-        logging.error(f"Error in batch monitoring: {e}")
+        logging.error("Error in batch monitoring: %s", e)
 
 if __name__ == '__main__':
     batch_monitoring_backfill()
