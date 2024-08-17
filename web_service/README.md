@@ -61,7 +61,8 @@ curl -X POST http://localhost:8080/predict -H "Content-Type: application/json" -
     "windspeed": 0.0,
     "hr": 9,
     "mnth": 1,
-    "yr": 0
+    "yr": 0,
+    "weekday":0
 }'
 ```
 ![Alt text](images/curl.png)
