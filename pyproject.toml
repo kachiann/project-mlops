@@ -15,4 +15,5 @@ disable = [
     "missing-timeout" ,
     "inconsistent-return-statements",
     "import-error",
-    "trailing-whitespace" ]      
+    "trailing-whitespace",
+    "duplicate-code" ]      
