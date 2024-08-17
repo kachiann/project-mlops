@@ -35,3 +35,9 @@ jobs:
             pipenv run pytest
           fi
         working-directory: tests/unit-test
+    - name: Lint
+        run: |
+          if [ -f Pipfile ]; then
+            pipenv run pylint --recursive=y src
+          fi
+        working-directory: .
