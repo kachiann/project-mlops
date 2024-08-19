@@ -356,33 +356,35 @@ This setup allows you to monitor your machine learning models effectively, provi
    #### To-Do List
 - [x] Reproducibility
       
-The versions for all dependencies are specified.
+  The versions for all dependencies are specified.
       
 - [x] Unit Tests
-![Alt text](images/unit_test.png)
+  ![Alt text](images/unit_test.png)
 - [x] Integration test
 
-See [**tests**](https://github.com/kachiann/project-mlops/tree/main/tests) folder.
+  See [**tests**](https://github.com/kachiann/project-mlops/tree/main/tests) folder.
       
 - [x] Linter and/or formatter
-![Alt text](images/pylint_final.png)
+  ![Alt text](images/pylint_final.png)
 
 ---
 
-![Alt text](images/pylint_unit_test.png)
+  ![Alt text](images/pylint_unit_test.png)
 
 ---
 
-Added docstrings, improved variable naming, and addressed Pylint issues
+  Added docstrings, improved variable naming, and addressed Pylint issues
 
-![Alt text](images/pylint_unit_final.png)
+  ![Alt text](images/pylint_unit_final.png)
 
 - [x] Makefile
 
-![Alt text](images/makefile.png)
+  ![Alt text](images/makefile.png)
 
 - [ ] pre-commit hooks
 - [x] CI/CD pipeline
+      
+  See [`.github`](https://github.com/kachiann/project-mlops/tree/main/.github/workflows) folder.
 
 6. ### Services
 - MLFlow - [http://127.0.0.1:5000](http://127.0.0.1:5000)
