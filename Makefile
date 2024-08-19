@@ -32,6 +32,11 @@ monitor:
 lint:
 	pylint *.py
 
+# Target to run tests
+test:
+	@echo "Running tests..."
+	pytest tests/unit-test
+
 register:
 	python src/model_registry.py
 
