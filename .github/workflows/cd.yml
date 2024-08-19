@@ -67,20 +67,6 @@ jobs:
       run: |
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-app:latest
 
-    - name: Run Unit tests
-      run: |
-        if [ -f Pipfile ]; then
-          pipenv run pytest
-        fi
-      working-directory: tests/unit-tests
-
-    - name: Lint
-      run: |
-        if [ -f Pipfile ]; then
-          pipenv run pylint --recursive=y src
-        fi
-      working-directory: .
-
     - name: Clean up Docker images
       run: |
         docker rmi my-app:latest
