@@ -27,8 +27,8 @@ def read_data(data_path=DATA_PATH):
         df = pd.read_csv(data_path)
         print(f"Data read successfully. Shape of the dataset: {df.shape}")
         return df
-    except Exception as exception:
-        raise RuntimeError(f"Failed to read data: {exception}")
+    except Exception as e:
+        raise RuntimeError(f"Failed to read data: {e}") from e
 
 
 @task
@@ -39,9 +39,10 @@ def preprocess_data(df):
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=0.2, random_state=42
         )
+        print("Data preprocessing completed.")
         return X_train, X_test, y_train, y_test
     except Exception as e:
-        raise RuntimeError(f"Data preprocessing failed: {e}")
+        raise RuntimeError(f"Data preprocessing failed: {e}") from e
 
 @task
 def train_model(X_train, y_train):
@@ -51,7 +52,7 @@ def train_model(X_train, y_train):
         print("Model training completed.")
         return model
     except Exception as e:
-        raise RuntimeError(f"Model training failed: {e}")
+        raise RuntimeError(f"Model training failed: {e}") from e
 
 @task
 def evaluate_model(model, X_test, y_test):
@@ -59,9 +60,11 @@ def evaluate_model(model, X_test, y_test):
         predictions = model.predict(X_test)
         mae = mean_absolute_error(y_test, predictions)
         r2 = r2_score(y_test, predictions)
+        print(f"Model evaluation completed. MAE: {mae}, R²: {r2}")
         return mae, r2
     except Exception as e:
-        raise RuntimeError(f"Model evaluation failed: {e}")
+        raise RuntimeError(f"Model evaluation failed: {e}") from e
+
 
 @task
 def log_model(model, mae, r2, model_dir=MODEL_DIR, model_filename=MODEL_FILENAME):
@@ -81,7 +84,7 @@ def log_model(model, mae, r2, model_dir=MODEL_DIR, model_filename=MODEL_FILENAME
             # Log the model as an artifact in MLflow
             mlflow.log_artifact(pickle_path)
     except Exception as e:
-        raise RuntimeError(f"Logging model failed: {e}")
+        raise RuntimeError(f"Logging model failed: {e}") from e
 
 @flow(log_prints=True)
 def ml_pipeline():
