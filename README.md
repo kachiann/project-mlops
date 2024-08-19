@@ -57,6 +57,8 @@ To get started with this project, follow these steps in your terminal:
 
    ```bash
    python3.11 -m venv venv
+   ```
+   ```bash
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 
