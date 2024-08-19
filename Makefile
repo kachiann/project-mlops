@@ -36,7 +36,7 @@ lint:
 # Target to run tests
 test:
 	@echo "Running tests..."
-	pytest tests/unit-test
+	pytest tests/unit-tests
 
 register:
 	python src/model_registry.py
