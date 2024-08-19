@@ -38,7 +38,7 @@ jobs:
           if [ -f Pipfile ]; then
             pipenv run pytest
           fi
-        working-directory: tests/unit-test
+        working-directory: tests/unit-tests
 
       - name: Lint
         run: |
