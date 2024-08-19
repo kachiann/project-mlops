@@ -5,8 +5,8 @@ mlflow server --backend-store-uri sqlite:///backend.db
 """
 
 import os
-import sys  # Standard library import
 import pickle
+import sys  # Standard library import
 
 # Third-party imports
 import mlflow
@@ -17,9 +17,11 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
+
 from constants import FEATURES
+
 # Local application imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 # Set the remote tracking URI
@@ -106,7 +108,6 @@ def train_and_log_model(
         print(f"Model saved as {pickle_path}")
 
         return run.info.run_id
-
 
 
 def main():

@@ -1,17 +1,23 @@
-
 import datetime
-import time
-import random
 import logging
+import random
+import time
+
 import joblib
 import pandas as pd
 import psycopg
-from prefect import task, flow
-from evidently.report import Report
 from evidently import ColumnMapping
-from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric, DatasetMissingValuesMetric
+from evidently.metrics import (
+    ColumnDriftMetric,
+    DatasetDriftMetric,
+    DatasetMissingValuesMetric,
+)
+from evidently.report import Report
+from prefect import flow, task
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s"
+)
 
 SEND_TIMEOUT = 10
 rand = random.Random()
@@ -26,66 +32,99 @@ CREATE TABLE dummy_metrics(
 )
 """
 
-reference_data = pd.read_csv('../data/reference.csv')
-with open('../models/dec_tre.bin', 'rb') as f_in:
+reference_data = pd.read_csv("../data/reference.csv")
+with open("../models/dec_tre.bin", "rb") as f_in:
     model = joblib.load(f_in)
 
-raw_data = pd.read_csv('../data/hour.csv')
+raw_data = pd.read_csv("../data/hour.csv")
 
-features = ['season', 'holiday', 'workingday', 'weathersit', 'temp', 'atemp', 
-            'hum', 'windspeed', 'hr', 'mnth', 'yr']
+features = [
+    "season",
+    "holiday",
+    "workingday",
+    "weathersit",
+    "temp",
+    "atemp",
+    "hum",
+    "windspeed",
+    "hr",
+    "mnth",
+    "yr",
+]
 column_mapping = ColumnMapping(
-    prediction='prediction',
-    numerical_features=features,
-    target=None
+    prediction="prediction", numerical_features=features, target=None
 )
 
-report = Report(metrics=[
-    ColumnDriftMetric(column_name='prediction'),
-    DatasetDriftMetric(),
-    DatasetMissingValuesMetric()
-])
+report = Report(
+    metrics=[
+        ColumnDriftMetric(column_name="prediction"),
+        DatasetDriftMetric(),
+        DatasetMissingValuesMetric(),
+    ]
+)
+
 
 @task
 def prep_db():
     try:
-        with psycopg.connect("host=localhost port=5432 user=postgres password=example", autocommit=True) as conn:
+        with psycopg.connect(
+            "host=localhost port=5432 user=postgres password=example", autocommit=True
+        ) as conn:
             res = conn.execute("SELECT 1 FROM pg_database WHERE datname='test'")
             if not res.fetchall():
                 conn.execute("CREATE DATABASE test;")
-            with psycopg.connect("host=localhost port=5432 dbname=test user=postgres password=example") as conn:
+            with psycopg.connect(
+                "host=localhost port=5432 dbname=test user=postgres password=example"
+            ) as conn:
                 conn.execute(create_table_statement)
     except Exception as e:
         logging.error("Error preparing the database: %s", {e})
+
 
 @task
 def calculate_metrics_postgresql(curr):
     try:
         current_data = raw_data.copy()
-        current_data['prediction'] = model.predict(current_data[features])
+        current_data["prediction"] = model.predict(current_data[features])
 
-        report.run(reference_data=reference_data, current_data=current_data,
-                   column_mapping=column_mapping)
+        report.run(
+            reference_data=reference_data,
+            current_data=current_data,
+            column_mapping=column_mapping,
+        )
 
         result = report.as_dict()
 
-        prediction_drift = result['metrics'][0]['result']['drift_score']
-        num_drifted_columns = result['metrics'][1]['result']['number_of_drifted_columns']
-        share_missing_values = result['metrics'][2]['result']['current']['share_of_missing_values']
+        prediction_drift = result["metrics"][0]["result"]["drift_score"]
+        num_drifted_columns = result["metrics"][1]["result"][
+            "number_of_drifted_columns"
+        ]
+        share_missing_values = result["metrics"][2]["result"]["current"][
+            "share_of_missing_values"
+        ]
 
         curr.execute(
             "INSERT INTO dummy_metrics(timestamp, prediction_drift, num_drifted_columns, share_missing_values) VALUES (%s, %s, %s, %s)",
-            (datetime.datetime.now(), prediction_drift, num_drifted_columns, share_missing_values)
+            (
+                datetime.datetime.now(),
+                prediction_drift,
+                num_drifted_columns,
+                share_missing_values,
+            ),
         )
     except Exception as e:
         logging.error("Error calculating metrics: %s", {e})
+
 
 @flow
 def batch_monitoring_backfill():
     prep_db()
     last_send = datetime.datetime.now() - datetime.timedelta(seconds=10)
     try:
-        with psycopg.connect("host=localhost port=5432 dbname=test user=postgres password=example", autocommit=True) as conn:
+        with psycopg.connect(
+            "host=localhost port=5432 dbname=test user=postgres password=example",
+            autocommit=True,
+        ) as conn:
             for _ in range(27):
                 with conn.cursor() as curr:
                     calculate_metrics_postgresql(curr)
@@ -99,5 +138,6 @@ def batch_monitoring_backfill():
     except Exception as e:
         logging.error("Error in batch monitoring: %s", e)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     batch_monitoring_backfill()

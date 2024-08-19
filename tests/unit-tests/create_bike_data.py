@@ -1,5 +1,6 @@
 import base64
 import json
+
 from utils import BIKE_DATA_TEMPLATE
 
 # Convert the data to a JSON string

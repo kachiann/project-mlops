@@ -6,6 +6,7 @@ setup:
 mlflow:
 	mlflow server --backend-store-uri sqlite:///backend.db
 
+# Target to do quality checks
 quality_checks:
 	@echo "Running qualilty checks"
 	isort .
