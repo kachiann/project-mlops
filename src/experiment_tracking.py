@@ -23,7 +23,6 @@ from constants import FEATURES
 # Local application imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-
 # Set the remote tracking URI
 REMOTE_TRACKING_URI = "http://127.0.0.1:5000"
 mlflow.set_tracking_uri(REMOTE_TRACKING_URI)
@@ -56,10 +55,6 @@ def train_and_log_model(
     Returns:
         run_id: The ID of the MLflow run.
     """
-    # Ensure the models directory exists
-    models_dir = os.path.join(os.getcwd(), "models")
-    os.makedirs(models_dir, exist_ok=True)
-
     with mlflow.start_run(run_name=model_name) as run:
         mlflow.set_tag("model", model_name)
 
