@@ -54,11 +54,16 @@ def train_and_log_model(
     Returns:
         run_id: The ID of the MLflow run.
     """
+    # Ensure the models directory exists
+    models_dir = os.path.join(os.getcwd(), "models")
+    os.makedirs(models_dir, exist_ok=True)
+
     with mlflow.start_run(run_name=model_name) as run:
         mlflow.set_tag("model", model_name)
 
-        # Log the full dataset as an artifact
-        mlflow.log_artifact(dataset_path, artifact_path="data")
+        if dataset_path:
+            # Log the full dataset as an artifact
+            mlflow.log_artifact(dataset_path, artifact_path="data")
 
         # Save and log the training dataset as a CSV file
         train_csv_path = os.path.join(models_dir, f"{model_name}_x_train.csv")
@@ -101,6 +106,7 @@ def train_and_log_model(
         print(f"Model saved as {pickle_path}")
 
         return run.info.run_id
+
 
 
 def main():
