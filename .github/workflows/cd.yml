@@ -2,7 +2,7 @@ name: Continuous Deployment
 
 on:
   push:
-    branches: [ develop ]  # Change this to the branch you want to trigger the workflow
+    branches: [ develop ]  # Change to 'main' if you want to use the main branch
   workflow_dispatch:
 
 jobs:
@@ -12,6 +12,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install pipenv and dependencies
+      run: |
+        python -m pip install --upgrade pip pipenv
+        if [ -f Pipfile ]; then
+          pipenv install --dev
+        fi
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -43,13 +55,6 @@ jobs:
     - name: Push Docker image to Docker Hub
       run: |
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-app:latest
-
-    - name: Install pipenv and dependencies
-      run: |
-        python -m pip install --upgrade pip pipenv
-        if [ -f Pipfile ]; then
-          pipenv install --dev --skip-lock
-        fi
 
     - name: Run Unit tests
       run: |
