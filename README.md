@@ -335,18 +335,7 @@ By following the instructions in the **web_service** folder, you can successfull
    mlflow server --backend-store-uri sqlite:///backend.db
    ```
 
-4. **View Baseline Model Metrics:**
-
-   To view the baseline model metrics via the Evidently UI, you can run the Jupyter notebook `baseline_model_evidently.ipynb` located in the `notebooks` folder. Make sure to open the relevant notebook and execute the cells to generate the necessary visualizations.
-
-5. **Run the Evidently UI:**
-
-   Execute the following command in the terminal to start the Evidently UI:
-
-   ```bash
-   evidently ui
-   ```
-
+clea
 This setup allows you to monitor your machine learning models effectively, providing insights into data quality, model performance, and any potential drifts in your data. By integrating Evidently AI, you can ensure that your models remain robust and reliable in production.
 
 ![Alt text](images/Evidently.png)
