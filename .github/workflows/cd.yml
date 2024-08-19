@@ -22,11 +22,19 @@ jobs:
       run: |
         python -m pip install --upgrade pip pipenv
 
-    - name: Install dependencies with pipenv
-      run: |
-        if [ -f Pipfile ]; then
-          pipenv install --dev
-        fi
+    - name: Install dependencies from requirements.txt
+        run: |
+          if [ -f requirements.txt ]; then
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+          fi
+
+      - name: Install pipenv and dependencies
+        run: |
+          python -m pip install --upgrade pip pipenv
+          if [ -f Pipfile ]; then
+            pipenv install --dev --skip-lock
+          fi
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
