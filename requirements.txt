@@ -17,4 +17,5 @@ pyarrow==15.0.2
 deepdiff
 pytest
 pylint
-black--24.8.0
+black==24.8.0
+isort==5.13.2
