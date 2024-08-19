@@ -2,6 +2,7 @@ import json
 import os
 import sys
 import time
+
 import requests
 from deepdiff import DeepDiff
 
@@ -77,7 +78,9 @@ def test_prediction():
     if "type_changes" in diff or "values_changed" in diff:
         print("Differences found between actual and expected responses:")
         print(diff)
-        assert False, "Test failed due to differences between actual and expected responses"
+        assert (
+            False
+        ), "Test failed due to differences between actual and expected responses"
     else:
         print("The actual response matches the expected response.")
 

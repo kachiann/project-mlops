@@ -1,11 +1,13 @@
 import os
 import unittest
+
 import pandas as pd
-from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.model_selection import train_test_split
 from mlflow.tracking import MlflowClient
-from src.experiment_tracking import train_and_log_model, main
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+
+from src.experiment_tracking import main, train_and_log_model
 
 # Constants
 FEATURES = [
@@ -22,28 +24,33 @@ FEATURES = [
     "yr",
 ]
 
+
 class TestModelTraining(unittest.TestCase):
 
     def setUp(self):
         # Create a small sample dataset for testing
-        self.X = pd.DataFrame({
-            'season': [1, 2, 3, 4],
-            'holiday': [0, 0, 1, 0],
-            'workingday': [1, 1, 0, 0],
-            'weathersit': [1, 2, 3, 4],
-            'temp': [0.24, 0.75, 0.50, 0.30],
-            'atemp': [0.2879, 0.8, 0.55, 0.35],
-            'hum': [0.81, 0.5, 0.7, 0.9],
-            'windspeed': [0.0, 0.1, 0.2, 0.3],
-            'hr': [0, 12, 23, 6],
-            'mnth': [1, 6, 12, 7],
-            'yr': [0, 1, 0, 1]
-        })
+        self.X = pd.DataFrame(
+            {
+                "season": [1, 2, 3, 4],
+                "holiday": [0, 0, 1, 0],
+                "workingday": [1, 1, 0, 0],
+                "weathersit": [1, 2, 3, 4],
+                "temp": [0.24, 0.75, 0.50, 0.30],
+                "atemp": [0.2879, 0.8, 0.55, 0.35],
+                "hum": [0.81, 0.5, 0.7, 0.9],
+                "windspeed": [0.0, 0.1, 0.2, 0.3],
+                "hr": [0, 12, 23, 6],
+                "mnth": [1, 6, 12, 7],
+                "yr": [0, 1, 0, 1],
+            }
+        )
         self.y = pd.Series([10, 50, 30, 20])  # Target variable
         self.dummy_dataset_path = "/tmp/dummy_dataset.csv"  # Dummy path for testing
 
         # Save dummy dataset
-        pd.concat([self.X, self.y.rename('cnt')], axis=1).to_csv(self.dummy_dataset_path, index=False)
+        pd.concat([self.X, self.y.rename("cnt")], axis=1).to_csv(
+            self.dummy_dataset_path, index=False
+        )
 
         # Ensure the models directory exists
         self.models_dir = os.path.join(os.getcwd(), "models")
@@ -62,9 +69,19 @@ class TestModelTraining(unittest.TestCase):
 
     def test_train_and_log_linear_regression(self):
         # Test Linear Regression training and logging using the sample dataset
-        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.25, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(
+            self.X, self.y, test_size=0.25, random_state=42
+        )
         lr_model = LinearRegression(n_jobs=1)
-        lr_run_id = train_and_log_model(lr_model, "UnitTestLinearRegression", X_train, X_test, y_train, y_test, self.dummy_dataset_path)
+        lr_run_id = train_and_log_model(
+            lr_model,
+            "UnitTestLinearRegression",
+            X_train,
+            X_test,
+            y_train,
+            y_test,
+            self.dummy_dataset_path,
+        )
 
         # Verify if run_id is returned and exists
         self.assertIsNotNone(lr_run_id)
@@ -72,9 +89,19 @@ class TestModelTraining(unittest.TestCase):
 
     def test_train_and_log_decision_tree_regressor(self):
         # Test Decision Tree Regressor training and logging using the sample dataset
-        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.25, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(
+            self.X, self.y, test_size=0.25, random_state=42
+        )
         dt_model = DecisionTreeRegressor()
-        dt_run_id = train_and_log_model(dt_model, "UnitTestDecisionTreeRegressor", X_train, X_test, y_train, y_test, self.dummy_dataset_path)
+        dt_run_id = train_and_log_model(
+            dt_model,
+            "UnitTestDecisionTreeRegressor",
+            X_train,
+            X_test,
+            y_train,
+            y_test,
+            self.dummy_dataset_path,
+        )
 
         # Verify if run_id is returned and exists
         self.assertIsNotNone(dt_run_id)
@@ -97,15 +124,22 @@ class TestModelTraining(unittest.TestCase):
 
         # Verify the model version exists and is in the Production stage
         lr_versions = client.search_model_versions(f"name='{lr_registered_model.name}'")
-        self.assertTrue(any(version.current_stage == "Production" for version in lr_versions))
+        self.assertTrue(
+            any(version.current_stage == "Production" for version in lr_versions)
+        )
 
         # Verify if Decision Tree Regressor model has been registered and transitioned to Production
-        dt_registered_model = client.get_registered_model("DecisionTreeRegressor_registered")
+        dt_registered_model = client.get_registered_model(
+            "DecisionTreeRegressor_registered"
+        )
         self.assertIsNotNone(dt_registered_model)
 
         # Verify the model version exists and is in the Production stage
         dt_versions = client.search_model_versions(f"name='{dt_registered_model.name}'")
-        self.assertTrue(any(version.current_stage == "Production" for version in dt_versions))
+        self.assertTrue(
+            any(version.current_stage == "Production" for version in dt_versions)
+        )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
