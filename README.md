@@ -31,7 +31,8 @@ This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web
 ## Clouds 
 - The project is deployed to Kubernetes and Docker. 
 ---
-## Quick Start
+
+## Quick Start: Run the whole thing in 5 minutes
 
 To get started with this project, follow these steps in your terminal:
 
@@ -57,23 +58,56 @@ To get started with this project, follow these steps in your terminal:
 
    ```bash
    python3.11 -m venv venv
-   ```
-   ```bash
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
-  Upgrade pip:
-  Once the virtual environment is activated, upgrade pip to the latest version:
-  ```bash
-  python -m pip install --upgrade pip
-  ```
+   
+   Upgrade pip:
+   Once the virtual environment is activated, upgrade pip to the latest version:
+   ```bash
+   python -m pip install --upgrade pip
+   ```
+
 4. **Install Dependencies:**
 
-   Install the necessary Python packages:
+   Install the necessary packages:
 
    ```bash
-   pip install -r requirements.txt
+   make setup
    ```
-5. **Run Implementation Files**:
+
+5. **Start the Model Training with MLflow:**
+   
+   ```bash
+   make mlflow
+   ```
+   Open a new tab. Ensure that you are still in the activated virtual environment when running the files:
+   ```bash
+   source venv/bin/activate
+   ```
+   This ensures that all dependencies are correctly referenced.
+   
+   Then run:
+   ```bash
+   make train
+   ```
+
+6. **Make Prediction:**
+   ```bash
+   make deploy
+   ```
+   Open a new tab. Ensure that you are still in the activated virtual environment when running the files:
+   ```bash
+   source venv/bin/activate
+   ```
+   This ensures that all dependencies are correctly referenced.
+   
+   Then run:
+   ```bash
+   make predict
+   ```
+---
+
+## To run the implementation files:
    
 Ensure that you are still in the activated virtual environment when running the files. This ensures that all dependencies are correctly referenced.
 
