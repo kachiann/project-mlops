@@ -155,6 +155,8 @@ Ensure that you are still in the activated virtual environment when running the 
   ```bash
   python src/model_registry.py
   ```
+  You have to input the run IDs for Linear Regression and Decision Tree Regressor generated after running the `experiment_tracking.py` file.
+  
 - **Model Loading:**
 
   Implement functionality to load models from the saved pickle files for further use or deployment.
