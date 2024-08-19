@@ -61,7 +61,11 @@ To get started with this project, follow these steps in your terminal:
    ```bash
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
-
+  Upgrade pip:
+  Once the virtual environment is activated, upgrade pip to the latest version:
+  ```bash
+  python -m pip install --upgrade pip
+  ```
 4. **Install Dependencies:**
 
    Install the necessary Python packages:
