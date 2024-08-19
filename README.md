@@ -386,7 +386,9 @@ This setup allows you to monitor your machine learning models effectively, provi
 - [ ] pre-commit hooks
 - [x] CI/CD pipeline
       
-  See [`.github`](https://github.com/kachiann/project-mlops/tree/main/.github/workflows) folder. To see the CI/CD pipelinces, navigate to the develop branch and check the .github/workflow folder for the files: cd-deploy.yml for CD, respectively.
+  See [`.github`](https://github.com/kachiann/project-mlops/tree/main/.github/workflows) folder.
+
+  To view the **CI/CD pipelines**, go to the develop branch and locate the .github/workflows directory. Inside, you'll find two files: `ci-pipeline.yml` for CI and `cd-deploy.yml` for CD.
 
 6. ### Services
 - MLFlow - [http://127.0.0.1:5000](http://127.0.0.1:5000)
