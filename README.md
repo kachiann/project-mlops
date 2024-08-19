@@ -307,7 +307,7 @@ By following the instructions in the **web_service** folder, you can successfull
 
 ### 4. Model Monitoring:
 
-[**Evidently AI**](https://www.evidentlyai.com/) is an open-source Python library for monitoring ML models during development, validation, and in production. It checks data and model quality, data drift, target drift, and regression and classification performance. We will integrate Evidently AI into the project to enhance our data and model monitoring capabilities. You can find the Evidently notebook in the `notebooks` folder.
+[**Evidently AI**](https://www.evidentlyai.com/) is an open-source Python library for monitoring ML models during development, validation, and in production. It checks data and model quality, data drift, target drift, and regression and classification performance. We will integrate Evidently AI into the project to enhance our data and model monitoring capabilities.
 
 **Usage**:
 
@@ -335,7 +335,20 @@ By following the instructions in the **web_service** folder, you can successfull
    mlflow server --backend-store-uri sqlite:///backend.db
    ```
 
-clea
+4. **View Baseline Model Metrics:**
+
+   To view the baseline model metrics via the Evidently UI, you can run the Jupyter notebook `baseline_model_evidently.ipynb` located in the `monitoring` folder. Make sure to open the relevant notebook and execute the cells to generate the necessary visualizations.
+
+5. **Run the Evidently UI:**
+
+   Execute the following command in the terminal to start the Evidently UI:
+
+   ```bash
+   evidently ui
+   ```
+  
+  If running on localhost, visit: http://localhost:8000 and not http://0.0.0.0:8000.
+
 This setup allows you to monitor your machine learning models effectively, providing insights into data quality, model performance, and any potential drifts in your data. By integrating Evidently AI, you can ensure that your models remain robust and reliable in production.
 
 ![Alt text](images/Evidently.png)
