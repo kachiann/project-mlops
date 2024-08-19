@@ -22,15 +22,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip pipenv
 
-    - name: Clear pipenv cache
-      run: |
-        pipenv --rm
-        pipenv lock --clear
-
-    - name: Install pipenv and dependencies
+    - name: Install dependencies with pipenv
       run: |
         if [ -f Pipfile ]; then
-          pipenv install --dev --verbose
+          pipenv install --dev
         fi
 
     - name: Set up Docker Buildx
@@ -66,4 +61,18 @@ jobs:
 
     - name: Run Unit tests
       run: |
-        if [
+        if [ -f Pipfile ]; then
+          pipenv run pytest
+        fi
+      working-directory: tests/unit-tests
+
+    - name: Lint
+      run: |
+        if [ -f Pipfile ]; then
+          pipenv run pylint --recursive=y src
+        fi
+      working-directory: .
+
+    - name: Clean up Docker images
+      run: |
+        docker rmi my-app:latest
