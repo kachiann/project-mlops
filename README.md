@@ -247,6 +247,11 @@ prefect agent start -p 'default-agent-pool'
 
 #### 6. Run the Deployment
 
+Open a new tab. Ensure that you are still in the activated virtual environment when running the files:
+   ```bash
+   source venv/bin/activate
+   ```
+
 In a new terminal, execute the deployment:
 
 ```bash
@@ -368,7 +373,10 @@ This setup allows you to monitor your machine learning models effectively, provi
   ![Alt text](images/unit_test.png)
 - [x] Integration test
 
-  See [**tests**](https://github.com/kachiann/project-mlops/tree/main/tests) folder.
+  See [**tests**](https://github.com/kachiann/project-mlops/tree/main/tests) folder. You can also run
+  ```bash
+    make test
+  ```
       
 - [x] Linter and/or formatter
   ![Alt text](images/pylint_final.png)
