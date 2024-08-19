@@ -9,7 +9,7 @@ prefect==2.19.9
 gunicorn==22.0.0
 flask==3.0.3
 requests==2.32.3
-evidently
+evidently==0.4.33
 tqdm
 psycopg
 psycopg_binary
@@ -19,3 +19,4 @@ pytest
 pylint
 black==24.8.0
 isort==5.13.2
+prefect==2.19.9
