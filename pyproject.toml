@@ -17,4 +17,5 @@ disable = [
     "import-error",
     "trailing-whitespace",
     "duplicate-code",
-    "logging-fstring-interpolation" ]      
+    "logging-fstring-interpolation",
+    "logging-too-many-args" ]      
