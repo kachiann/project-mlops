@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bike-sharing-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bike-sharing
+  template:
+    metadata:
+      labels:
+        app: bike-sharing
+    spec:
+      containers:
+      - name: bike-sharing-container
+        image: kachiann12/bike-sharing-demand-app:latest
+        ports:
+        - containerPort: 8080
+        workingDir: /app/web_service
