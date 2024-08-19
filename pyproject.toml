@@ -16,4 +16,5 @@ disable = [
     "inconsistent-return-statements",
     "import-error",
     "trailing-whitespace",
-    "duplicate-code" ]      
+    "duplicate-code",
+    "logging-fstring-interpolation" ]      
