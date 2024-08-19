@@ -58,7 +58,3 @@ jobs:
     - name: Push Docker image to Docker Hub
       run: |
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-app:latest
-
-    - name: Clean up Docker images
-      run: |
-        docker rmi my-app:latest
