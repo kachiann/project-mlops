@@ -2,12 +2,12 @@ name: Continuous Deployment
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop ]  # Change this to the branch you want to trigger the workflow
   workflow_dispatch:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # `ubuntu-latest` for Docker support
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -36,9 +36,12 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    - name: Push Docker image
+    - name: Tag Docker image
       run: |
         docker tag my-app:latest ${{ secrets.DOCKER_HUB_USERNAME }}/my-app:latest
+
+    - name: Push Docker image to Docker Hub
+      run: |
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-app:latest
 
     - name: Install pipenv and dependencies
