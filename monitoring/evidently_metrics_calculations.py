@@ -23,8 +23,7 @@ SEND_TIMEOUT = 10
 rand = random.Random()
 
 create_table_statement = """
-DROP TABLE IF EXISTS dummy_metrics;
-CREATE TABLE dummy_metrics(
+CREATE TABLE IF NOT EXISTS dummy_metrics (
     timestamp TIMESTAMP,
     prediction_drift FLOAT,
     num_drifted_columns INTEGER,
@@ -32,11 +31,12 @@ CREATE TABLE dummy_metrics(
 )
 """
 
-reference_data = pd.read_csv("../data/reference.csv")
-with open("../models/dec_tre.bin", "rb") as f_in:
+# Update the file path to the new location
+reference_data = pd.read_csv("../project-mlops/data/reference.csv")
+with open("../project-mlops/models/DecisionTreeRegressor.pkl", "rb") as f_in:
     model = joblib.load(f_in)
 
-raw_data = pd.read_csv("../data/hour.csv")
+raw_data = pd.read_csv("../project-mlops/data/hour.csv")
 
 features = [
     "season",
@@ -70,15 +70,24 @@ def prep_db():
         with psycopg.connect(
             "host=localhost port=5432 user=postgres password=example", autocommit=True
         ) as conn:
+            # Check if the database exists
             res = conn.execute("SELECT 1 FROM pg_database WHERE datname='test'")
             if not res.fetchall():
+                logging.info("Database 'test' not found. Creating database.")
                 conn.execute("CREATE DATABASE test;")
+            else:
+                logging.info("Database 'test' already exists.")
+
+            # Connect to the database and create the table
             with psycopg.connect(
                 "host=localhost port=5432 dbname=test user=postgres password=example"
             ) as conn:
                 conn.execute(create_table_statement)
+                logging.info("Table 'dummy_metrics' is ready.")
+    except psycopg.OperationalError as e:
+        logging.error("OperationalError: %s", str(e))
     except Exception as e:
-        logging.error("Error preparing the database: %s", {e})
+        logging.error("Error preparing the database: %s", str(e))
 
 
 @task
@@ -112,8 +121,9 @@ def calculate_metrics_postgresql(curr):
                 share_missing_values,
             ),
         )
+        logging.info("Metrics inserted into database.")
     except Exception as e:
-        logging.error("Error calculating metrics: %s", {e})
+        logging.error("Error calculating metrics: %s", str(e))
 
 
 @flow
@@ -134,9 +144,9 @@ def batch_monitoring_backfill():
                 if seconds_elapsed < SEND_TIMEOUT:
                     time.sleep(SEND_TIMEOUT - seconds_elapsed)
                 last_send += datetime.timedelta(seconds=10)
-                logging.info("Data sent")
+                logging.info("Data sent. Waiting for the next iteration.")
     except Exception as e:
-        logging.error("Error in batch monitoring: %s", e)
+        logging.error("Error in batch monitoring: %s", str(e))
 
 
 if __name__ == "__main__":
