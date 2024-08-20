@@ -392,7 +392,7 @@ This setup allows you to monitor your machine learning models effectively, provi
   ![Alt text](images/pylint_unit_final.png)
 
 - [x] Makefile
-  You cna run
+  You can run
   ```bash
       make lint
   ```
