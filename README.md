@@ -31,6 +31,7 @@ This repository has five folders: *data*, *notebooks*, *models*, *src*, and *web
 ## Clouds 
 - The project is deployed to Kubernetes and Docker. 
 ---
+![Alt text](images/mlops_flowchart/mlops_flowchart.001.jpeg)
 
 ## Quick Start: Run the whole thing in 5 minutes
 
