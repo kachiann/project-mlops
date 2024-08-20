@@ -57,6 +57,7 @@ def train_and_log_model(
     """
     with mlflow.start_run(run_name=model_name) as run:
         mlflow.set_tag("model", model_name)
+        mlflow.set_tag('developer', 'kachiann')
 
         if dataset_path:
             # Log the full dataset as an artifact
